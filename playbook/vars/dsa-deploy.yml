@@ -1,0 +1,8 @@
+---
+dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
+dsm_agent_download_port: 443
+dsa_activation_hostname: agents.deepsecurity.trendmicro.com
+dsa_activation_port: 443
+tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
+tenant_password: 111A111A-1A1A-11AA-AAA-11AA11111111
+default_policy_id: 1
