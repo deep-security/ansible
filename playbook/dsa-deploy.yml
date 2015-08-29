@@ -28,11 +28,14 @@
       when: ansible_pkg_mgr == "apt"
 
     - name: Install the Deep Security agent
-      zypper: name={{ agent_local_path }} state=present update_cache=true
+      zypper: name={{ agent_local_path }} state=present
       when: ansible_pkg_mgr == "zypper"
 
     - name: Reset the Deep Security agent
       command: /opt/ds_agent/dsa_control -r
+
+    - name: Make sure the agent has gathered the required metadata
+      pause: seconds=7
 
     - name: Activate the Deep Security agent
       command: /opt/ds_agent/dsa_control -a dsm://{{ dsa_activation_hostname }}:{{ dsa_activation_port }}/ "tenantID:{{ tenant_id }}" "tenantPassword:{{ tenant_password }}"
