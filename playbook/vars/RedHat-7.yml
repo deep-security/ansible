@@ -1,0 +1,3 @@
+---
+agent_relative_path: software/agent/RedHat_EL7
+agent_local_path: /tmp/ds_agent.rpm
