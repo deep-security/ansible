@@ -1,0 +1,20 @@
+---
+- hosts: all
+  vars:
+     dsa_activation_hostname: agents.deepsecurity.trendmicro.com
+     dsa_activation_port: 443
+     tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
+     tenant_password: 111A111A-1A1A-11AA-AAA-11AA11111111
+     default_policy_id: 1
+  tasks:
+    - name: Download the Deep Security agent
+      get_url: url=https://app.deepsecurity.trendmicro.com:443/software/agent/amzn1/x86_64/ dest=/tmp/ds_agent.rpm validate_certs=no
+
+    - name: Install the Deep Security agent
+      yum: name=/tmp/ds_agent.rpm state=installed update_cache=true
+
+    - name: Reset the Deep Security agent
+      command: /opt/ds_agent/dsa_control -r
+
+    - name: Activate the Deep Security agent
+      command: /opt/ds_agent/dsa_control -a dsm://{{ dsa_activation_hostname }}:{{ dsa_activation_port }}/ "tenantID:{{ tenant_id }}" "tenantPassword:{{ tenant_password }}"
