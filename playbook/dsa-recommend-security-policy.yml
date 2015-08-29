@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Create a recommended securty policy for the node
+      command: /opt/ds_agent/dsa_control -m "RecommendationScan:true"

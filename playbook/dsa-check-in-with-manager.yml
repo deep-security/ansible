@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Ask the Deep Security agent to check in with the Deep Security manager
+      command: /opt/ds_agent/dsa_control -m
