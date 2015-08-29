@@ -5,7 +5,7 @@ An Ansible playbook for the Deep Security agent. This allows for the easy deploy
 <a name="vars"></a>
 ## Vars
 
-For play dsa-deploy* the follow vars need to be set. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
+For play dsa-deploy the follow vars need to be set. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
 
 <table>
   <tr>
