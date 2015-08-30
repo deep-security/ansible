@@ -1,0 +1,7 @@
+---
+- hosts: all
+  vars:
+     policy_name: "Base Policy"
+  tasks:
+    - name: Apply a policy to the node
+      command: /opt/ds_agent/dsa_control -m "policy:{{ policy_name }}"
