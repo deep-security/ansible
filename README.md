@@ -57,3 +57,14 @@ For play dsa-deploy the follow vars need to be set. The are contained in the [va
     <td><tt>nil</tt></td>
   </tr>
 </table>
+
+## Contributing
+
+We're always open to PRs from the community. To submit one:
+
+1. Fork the repo
+1. Create a new feature branch
+1. Make your changes
+1. Submit a PR with an explanation of what/why/cavaets/etc.
+
+We'll review and work with you to make sure that the fix gets pushed out quickly.
