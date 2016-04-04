@@ -4,6 +4,9 @@
 	<dt><a href="dsa-deploy.yml">dsa-deploy.yml</a></dt>
 	<dd>Deploys the Deep Security agent to the node<sup>1</sup></dd>
 
+	<dt><a href="dsa-activate.yml">dsa-activate.yml</a></dt>
+	<dd>Activate the Deep Security agent when it's already installed on the node<sup>1</sup></dd>
+
 	<dt><a href="dsa-check-in-with-manager.yml">dsa-check-in-with-manager.yml</a></dt>
 	<dd>Asks the Deep Security agent to check in with the Deep Security manager (forced heartbeat</a></dd>
 
