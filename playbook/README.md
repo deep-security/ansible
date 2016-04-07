@@ -7,6 +7,15 @@
 	<dt><a href="dsa-activate.yml">dsa-activate.yml</a></dt>
 	<dd>Activate the Deep Security agent when it's already installed on the node</dd>
 
+	<dt><a href="dsa-assign-policy-by-id.yml">dsa-assign-policy-by-id.yml</a></dt>
+	<dd>Assign a specific policy to the Deep Security agent by the policy ID</dd>
+
+  <dt><a href="dsa-assign-policy-by-name.yml">dsa-assign-policy-by-name.yml</a></dt>
+	<dd>Assign a specific policy to the Deep Security agent by the policy name</dd>
+
+	<dt><a href="dsa-activate.yml">dsa-activate.yml</a></dt>
+	<dd>Activate the Deep Security agent when it's already installed on the node</dd>
+
 	<dt><a href="dsa-check-in-with-manager.yml">dsa-check-in-with-manager.yml</a></dt>
 	<dd>Asks the Deep Security agent to check in with the Deep Security manager (forced heartbeat</a></dd>
 
