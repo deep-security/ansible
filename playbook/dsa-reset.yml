@@ -1,0 +1,7 @@
+---
+- hosts: all
+  vars_files:
+    - vars/dsa-deploy.yml
+  tasks:
+    - name: Reset the Deep Security agent
+      command: /opt/ds_agent/dsa_control -r
