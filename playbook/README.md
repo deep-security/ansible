@@ -5,7 +5,7 @@
 	<dd>Deploys the Deep Security agent to the node<sup>1</sup></dd>
 
 	<dt><a href="dsa-activate.yml">dsa-activate.yml</a></dt>
-	<dd>Activate the Deep Security agent when it's already installed on the node<sup>1</sup></dd>
+	<dd>Activate the Deep Security agent when it's already installed on the node</dd>
 
 	<dt><a href="dsa-check-in-with-manager.yml">dsa-check-in-with-manager.yml</a></dt>
 	<dd>Asks the Deep Security agent to check in with the Deep Security manager (forced heartbeat</a></dd>
@@ -15,6 +15,9 @@
 
 	<dt><a href="dsa-create-integrity-baseline.yml">dsa-create-integrity-baseline.yml</a></dt>
 	<dd>Create a baseline for the integrity monitoring engine</dd>
+
+	<dt><a href="dsa-reset.yml">dsa-reset.yml</a></dt>
+	<dd>Reset the configuration information for the Deep Security agent</dd>
 
 	<dt><a href="dsa-recommend-security-policy.yml">dsa-recommend-security-policy.yml</a></dt>
 	<dd>Scans the node and recommends a security policy based on the current profile of the node</dd>
