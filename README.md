@@ -1,78 +1,90 @@
-# Ansible
+deep-security-agent
+=========
+[![Build Status](https://travis-ci.org/matic-insurance/ansible-deep-security-agent.svg?branch=feature%2Fupdate_playbook)](https://travis-ci.org/matic-insurance/ansible-deep-security-agent)
 
-An Ansible playbook for the Deep Security agent. This allows for the easy deployment of the Deep Security agent as well as taking some common actions from the agent.
+Role used to download, configure and run Trend Micro Deep Security agent
 
-## Support
+Requirements
+------------
 
-This is a community project and while you will see contributions from the Deep Security team, there is no official Trend Micro support for this project. The official documentation for the Deep Security APIs is available from the [Trend Micro Online Help Centre](http://docs.trendmicro.com/en-us/enterprise/deep-security.aspx). 
+Ubuntu 14.04 is tested.
 
-Tutorials, feature-specific help, and other information about Deep Security is available from the [Deep Security Help Center](https://help.deepsecurity.trendmicro.com/Welcome.html). 
+Role Variables
+--------------
 
-For Deep Security specific issues, please use the regular Trend Micro support channels. For issues with the code in this repository, please [open an issue here on GitHub](https://github.com/deep-security/ansible/issues).
+Here is the list of Required variables with default values:
+```yaml
+# Host name of your deep security manager
+dsm_host_name: your.deep-security.server
 
-<a name="vars"></a>
-## Vars
+```
+These variables are optional and can be changed if needed
+```yaml
+# Host name of manager or relay where agent installation can be downloaded
+dsm_agent_download_hostname: '{{ dsm_host_name }}'
+# Download port for agent
+dsm_agent_download_port: 443
 
-For play dsa-deploy the follow vars need to be set. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
+# Host name of manager where agent should be registered
+dsa_activation_hostname: '{{ dsm_host_name }}'
+# Port name for agent activation
+dsa_activation_port: 4120
 
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>dsm_agent_download_hostname</tt></td>
-    <td>String</td>
-    <td>Hostname of the Deep Security manager</td>
-    <td><tt>app.deepsecurity.trendmicro.com</tt></td>
-  </tr>
-  <tr>
-    <td><tt>dsm_agent_download_port</tt></td>
-    <td>Int</td>
-    <td>The port to connect to the Deep Security manager on to download the agents. This is typically the same port as the admin web access</td>
-    <td><tt>443</tt></td>
-  </tr>
-  <tr>
-    <td><tt>dsa_activation_hostname</tt></td>
-    <td>String</td>
-    <td>The hostname for the agents to communicate with once deployed. For Marketplace AMI and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'</td>
-    <td><tt>agents.deepsecurity.trendmicro.com</tt></td>
-  </tr>
-  <tr>
-    <td><tt>dsa_activation_port</tt></td>
-    <td>Int</td>
-    <td>The post to use for the agent heartbeat (the regular communication). For Marketplace AMI and software deployments, the default is 4118</td>
-    <td><tt>443</tt></td>
-  </tr>
-  <tr>
-    <td><tt>tenant_id</tt></td>
-    <td>String</td>
-    <td>In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with</td>
-    <td><tt>nil</tt></td>
-  </tr>
-  <tr>
-    <td><tt>tenant_password</tt></td>
-    <td>String</td>
-    <td>In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with</td>
-    <td><tt>nil</tt></td>
-  </tr>
-  <tr>
-    <td><tt>policy_id</tt></td>
-    <td>String</td>
-    <td>The Deep Security ID assigned to the policy to apply to the agents on activation</td>
-    <td><tt>nil</tt></td>
-  </tr>
-</table>
+# Agent activation token for automatic activation
+dsa_activation_token:
+# Auto assign policy id
+dsa_policy_id:
+# Auto assign policy name
+dsa_policy_name:
+```
 
-## Contributing
+Dependencies
+------------
 
-We're always open to PRs from the community. To submit one:
+No dependencies
 
-1. Fork the repo
-1. Create a new feature branch
-1. Make your changes
-1. Submit a PR with an explanation of what/why/cavaets/etc.
+Example Playbook
+----------------
 
-We'll review and work with you to make sure that the fix gets pushed out quickly.
+Simpliest playbook can be following:
+
+```yaml
+- hosts: all
+  roles:
+    - role: matic-insurance.deep-security-agent
+      dsm_host_name: 'your.deep-security.server'
+```
+
+This playbook will:
+1. try to download agent from `https://your.deep-security.server`
+1. install it
+1. Activate it at `dsm://your.deep-security.server:4120`
+1. Request recommendation scan
+
+Advanced playbook with automatic activation and policy:
+```yaml
+- hosts: webservers
+  roles:
+    - role: matic-insurance.deep-security-agent
+      dsm_host_name: 'your.deep-security.server'
+      dsa_activation_token: 'TYoSZtEWL1Iosqud7R0klSs8PvPhB2'
+      dsa_policy_name: 'Linux Server'
+```
+
+This playbook will:
+1. try to download agent from `https://your.deep-security.server`
+1. install it
+1. Activate it at `dsm://your.deep-security.server:4120` with token `TYoSZtEWL1Iosqud7R0klSs8PvPhB2` 
+1. Assign policy with name `Linux Server`
+
+License
+-------
+
+MIT
+
+Author Information
+------------------
+
+Matic is disrupting the homeowner's insurance
+industry by providing insurance at the point of sale —
+when borrowers apply for a mortgage.

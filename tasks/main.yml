@@ -1,0 +1,49 @@
+---
+- name: Configure the playbook for the current distribution
+  include_vars: '{{ item }}'
+  with_first_found:
+    - "vars/{{ ansible_distribution|default('Unknown') }}.yml"
+    - "vars/{{ ansible_distribution|default('Unknown') }}-{{ ansible_distribution_major_version|default('00')|truncate(2) }}.yml"
+    - "vars/default.yml"
+
+- name: Update user
+  debug: msg="Selected agent is {{ ansible_distribution|default('Unknown') }}-{{ ansible_distribution_major_version|default('00')|truncate(2) }}"
+
+- name: Update user
+  debug: msg="Downloading agent from https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
+
+- name: Download the Deep Security agent
+  get_url: url="https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/" dest="{{ dsa_local_download_path }}" validate_certs=no
+
+- name: Install the Deep Security agent
+  yum: name={{ dsa_local_download_path }} state=installed update_cache=true
+  when: ansible_pkg_mgr == "yum"
+
+- name: Install the Deep Security agent
+  apt: deb={{ dsa_local_download_path }} state=present update_cache=true
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install the Deep Security agent
+  zypper: name={{ dsa_local_download_path }} state=present
+  when: ansible_pkg_mgr == "zypper"
+
+- name: Reset the Deep Security agent
+  command: /opt/ds_agent/dsa_control -r
+
+- name: Make sure the agent has gathered the required metadata
+  pause: seconds=7
+
+- name: Activate the Deep Security agent
+  command: /opt/ds_agent/dsa_control -a dsm://{{ dsa_activation_hostname }}:{{ dsa_activation_port }}/ "token:{{ dsa_activation_token }}"
+
+- name: Apply a policy by id to the node
+  command: /opt/ds_agent/dsa_control -m "policyid:{{ dsa_policy_id }}"
+  when: dsa_policy_id is not none
+
+- name: Apply a policy by name to the node
+  command: /opt/ds_agent/dsa_control -m "policy:{{ dsa_policy_name }}"
+  when: dsa_policy_name is not none
+
+- name: Create a recommended securty policy for the node
+  command: /opt/ds_agent/dsa_control -m "RecommendationScan:true"
+  when: dsa_policy_id is none and dsa_policy_name is none

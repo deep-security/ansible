@@ -1,5 +1,0 @@
----
-- hosts: all
-  tasks:
-    - name: Ask the Deep Security agent to create an integrity baseline
-      command: /opt/ds_agent/dsa_control --buildBaseline
