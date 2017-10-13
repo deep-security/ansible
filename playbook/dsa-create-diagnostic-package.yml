@@ -1,5 +1,0 @@
----
-- hosts: all
-  tasks:
-    - name: Ask the Deep Security agent to create a diagnostics package
-      command: /opt/ds_agent/dsa_control -d
