@@ -17,3 +17,5 @@ dsa_activation_token:
 dsa_policy_id:
 # Auto assign policy name
 dsa_policy_name:
+# Disable iptables removal
+dsa_disable_iptables_removal: true
