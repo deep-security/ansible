@@ -15,6 +15,13 @@
 - name: Download the Deep Security agent
   get_url: url="https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/" dest="{{ dsa_local_download_path }}" validate_certs=no
 
+- name: Disable iptables usage
+  copy:
+    content: ""
+    dest: "/etc/use_dsa_with_iptables"
+    force: yes
+  when: dsa_disable_iptables_removal
+
 - name: Install the Deep Security agent
   yum: name={{ dsa_local_download_path }} state=installed update_cache=true
   when: ansible_pkg_mgr == "yum"
