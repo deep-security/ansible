@@ -24,6 +24,7 @@
     url: "https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
     dest: "{{ dsa_local_download_path }}"
     validate_certs: no
+  when: not ansible_check_mode
 
 - name: Disable iptables usage
   copy:

@@ -3,8 +3,8 @@
   become: yes
   roles:
     - role: ../..
-      dsm_host_name: 'files.trendmicro.com'
+      dsm_host_name: 'your.deep-security.server'
     - role: ../..
-      dsm_host_name: 'files.trendmicro.com'
+      dsm_host_name: 'your.deep-security.server'
       dsa_activation_token: 'TYoSZtEWL1Iosqud7R0klSs8PvPhB2'
       dsa_policy_name: 'Linux Server'
