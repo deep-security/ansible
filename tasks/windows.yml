@@ -1,0 +1,34 @@
+---
+- name: 'Upload installation file'
+  win_template:
+    src: "install-deep-security.ps1.j2"
+    dest: "{{ dsa_local_download_path }}\\install-deep-security.ps1"
+  register: dsa_installation_file
+
+- name: 'Upload activation file'
+  win_template:
+    src: "activate-deep-security.ps1.j2"
+    dest: "{{ dsa_local_download_path }}\\activate-deep-security.ps1"
+
+- name: 'Upload activation task file'
+  win_template:
+    src: "activate-task.ps1.j2"
+    dest: "{{ dsa_local_download_path }}\\activate-task.ps1"
+
+- name: 'Upload activation file task'
+  win_template:
+    src: "activate-deep-security.ps1.j2"
+    dest: "{{ dsa_local_download_path }}\\activate-deep-security.ps1"
+
+- name: "Install deep security"
+  win_shell: "{{ dsa_local_download_path }}\\install-deep-security.ps1 >> {{dsa_local_download_path}}\\install.log"
+  when: dsa_installation_file.changed
+
+- name: "Schedule activation"
+  win_shell: "{{ dsa_local_download_path }}\\activate-task.ps1 >> {{dsa_local_download_path}}\\activate.log"
+  when: dsa_installation_file.changed
+
+- name: "Reboot instance to install agent"
+  win_reboot:
+    msg: "Deep Security Agent installation"
+  when: dsa_installation_file.changed

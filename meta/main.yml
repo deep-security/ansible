@@ -162,10 +162,10 @@ galaxy_info:
 #    - 5
 #    - 6
 #    - 7
-  #- name: Windows
-  #  versions:
-  #  - all
-  #  - 2012R2
+  - name: Windows
+    versions:
+    - all
+    - 2012R2
   #- name: SmartOS
   #  versions:
   #  - all
