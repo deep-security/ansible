@@ -35,15 +35,15 @@
 
 - name: Install the Deep Security agent
   yum: name={{ dsa_local_download_path }} state=installed update_cache=true
-  when: ansible_pkg_mgr == "yum"
+  when: ansible_pkg_mgr == "yum" and not ansible_check_mode
 
 - name: Install the Deep Security agent
   apt: deb={{ dsa_local_download_path }} state=present update_cache=true
-  when: ansible_pkg_mgr == "apt"
+  when: ansible_pkg_mgr == "apt" and not ansible_check_mode
 
 - name: Install the Deep Security agent
   zypper: name={{ dsa_local_download_path }} state=present
-  when: ansible_pkg_mgr == "zypper"
+  when: ansible_pkg_mgr == "zypper" and not ansible_check_mode
 
 - name: Reset the Deep Security agent
   command: /opt/ds_agent/dsa_control -r
