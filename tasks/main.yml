@@ -1,19 +1,30 @@
 ---
+- name: Common variables
+  set_fact:
+    deep_security_distribution_os: "{{ ansible_distribution|default('Unknown') }}"
+    deep_security_distribution_version: "{{ ansible_distribution_major_version|default('00')|truncate(2, False, '', 0) }}"
+
 - name: Configure the playbook for the current distribution
   include_vars: '{{ item }}'
   with_first_found:
-    - "vars/{{ ansible_distribution|default('Unknown') }}.yml"
-    - "vars/{{ ansible_distribution|default('Unknown') }}-{{ ansible_distribution_major_version|default('00')|truncate(2) }}.yml"
+    - "vars/{{ deep_security_distribution_os }}.yml"
+    - "vars/{{ deep_security_distribution_os }}-{{ deep_security_distribution_version }}.yml"
     - "vars/default.yml"
 
 - name: Update user
-  debug: msg="Selected agent is {{ ansible_distribution|default('Unknown') }}-{{ ansible_distribution_major_version|default('00')|truncate(2) }}"
+  debug:
+    msg: "Selected agent is {{ deep_security_distribution_os }}-{{ deep_security_distribution_version }}"
 
 - name: Update user
-  debug: msg="Downloading agent from https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
+  debug:
+    msg: "Downloading agent from https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
 
 - name: Download the Deep Security agent
-  get_url: url="https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/" dest="{{ dsa_local_download_path }}" validate_certs=no
+  get_url:
+    url: "https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
+    dest: "{{ dsa_local_download_path }}"
+    validate_certs: no
+  when: not ansible_check_mode
 
 - name: Disable iptables usage
   copy:
@@ -24,15 +35,15 @@
 
 - name: Install the Deep Security agent
   yum: name={{ dsa_local_download_path }} state=installed update_cache=true
-  when: ansible_pkg_mgr == "yum"
+  when: ansible_pkg_mgr == "yum" and not ansible_check_mode
 
 - name: Install the Deep Security agent
   apt: deb={{ dsa_local_download_path }} state=present update_cache=true
-  when: ansible_pkg_mgr == "apt"
+  when: ansible_pkg_mgr == "apt" and not ansible_check_mode
 
 - name: Install the Deep Security agent
   zypper: name={{ dsa_local_download_path }} state=present
-  when: ansible_pkg_mgr == "zypper"
+  when: ansible_pkg_mgr == "zypper" and not ansible_check_mode
 
 - name: Reset the Deep Security agent
   command: /opt/ds_agent/dsa_control -r

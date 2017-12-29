@@ -26,6 +26,7 @@ install:
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/travis.hosts --syntax-check --connection=local
+  - ansible-playbook tests/test.yml -i tests/travis.hosts --check --connection=local
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
