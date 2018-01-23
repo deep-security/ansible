@@ -1,0 +1,21 @@
+---
+# Host name of your deep security manager
+dsm_host_name: app.deepsecurity.trendmicro.com
+# Host name of manager or relay where agent installation can be downloaded
+dsm_agent_download_hostname: '{{ dsm_host_name }}'
+# Download port for agent
+dsm_agent_download_port: 443
+
+# Host name of manager where agent should be registered
+dsa_activation_hostname: '{{ dsm_host_name }}'
+# Port name for agent activation
+dsa_activation_port: 4120
+
+# Agent activation token for automatic activation
+dsa_activation_token:
+# Auto assign policy id
+dsa_policy_id:
+# Auto assign policy name
+dsa_policy_name:
+# Disable iptables removal
+dsa_disable_iptables_removal: true

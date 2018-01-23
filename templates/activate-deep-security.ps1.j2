@@ -1,0 +1,8 @@
+#requires -version 4.0
+# This script detects platform and architecture, download and install matching Deep Security Agent 10 package
+echo "$(Get-Date -format T) - DSA Activation started"
+Start-Sleep -s 5
+& $Env:ProgramFiles"\Trend Micro\Deep Security Agent\dsa_control" -r
+& $Env:ProgramFiles"\Trend Micro\Deep Security Agent\dsa_control" -a dsm://trend-micro.matic.link:4120/ x"token:5nf3N7rc77p8nlC1CLJ2p2u3BnfosF" "policy:{{dsa_policy_name}}"
+Stop-Transcript
+echo "$(Get-Date -format T) - DSA Activation Finished"

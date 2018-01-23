@@ -1,0 +1,7 @@
+#requires -version 4.0
+$A = New-ScheduledTaskAction -Execute "Powershell.exe"  -Argument ' -ExecutionPolicy Unrestricted -NonInteractive -File {{ dsa_local_download_path }}\\activate-deep-security.ps1'
+$T = New-ScheduledTaskTrigger -AtStartup
+PS C:\> $P = New-ScheduledTaskPrincipal "Contoso\Administrator" -RunLevel Highest
+PS C:\> $S = New-ScheduledTaskSettingsSet
+PS C:\> $D = New-ScheduledTask -Action $A -Principal $P -Trigger $T -Settings $S
+PS C:\> Register-ScheduledTask T1 -InputObject $D

@@ -1,0 +1,3 @@
+---
+dsa_server_relative_path: software/agent/amzn1
+dsa_local_download_path: /tmp/ds_agent.rpm

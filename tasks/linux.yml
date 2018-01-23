@@ -1,0 +1,55 @@
+---
+- name: Update user
+  debug:
+    msg: "Selected agent is {{ deep_security_distribution_os }}-{{ deep_security_distribution_version }}"
+
+- name: Update user
+  debug:
+    msg: "Downloading agent from https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
+
+- name: Download the Deep Security agent
+  get_url:
+    url: "https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ dsa_server_relative_path }}/{{ ansible_architecture }}/"
+    dest: "{{ dsa_local_download_path }}"
+    validate_certs: no
+  when: not ansible_check_mode
+
+- name: Disable iptables usage
+  copy:
+    content: ""
+    dest: "/etc/use_dsa_with_iptables"
+    force: yes
+  when: dsa_disable_iptables_removal
+
+- name: Install the Deep Security agent
+  yum: name={{ dsa_local_download_path }} state=installed update_cache=true
+  when: ansible_pkg_mgr == "yum" and not ansible_check_mode
+
+- name: Install the Deep Security agent
+  apt: deb={{ dsa_local_download_path }} state=present update_cache=true
+  when: ansible_pkg_mgr == "apt" and not ansible_check_mode
+
+- name: Install the Deep Security agent
+  zypper: name={{ dsa_local_download_path }} state=present
+  when: ansible_pkg_mgr == "zypper" and not ansible_check_mode
+
+- name: Reset the Deep Security agent
+  command: /opt/ds_agent/dsa_control -r
+
+- name: Make sure the agent has gathered the required metadata
+  pause: seconds=7
+
+- name: Activate the Deep Security agent
+  command: /opt/ds_agent/dsa_control -a dsm://{{ dsa_activation_hostname }}:{{ dsa_activation_port }}/ "token:{{ dsa_activation_token }}"
+
+- name: Apply a policy by id to the node
+  command: /opt/ds_agent/dsa_control -m "policyid:{{ dsa_policy_id }}"
+  when: dsa_policy_id is not none
+
+- name: Apply a policy by name to the node
+  command: /opt/ds_agent/dsa_control -m "policy:{{ dsa_policy_name }}"
+  when: dsa_policy_name is not none
+
+- name: Create a recommended securty policy for the node
+  command: /opt/ds_agent/dsa_control -m "RecommendationScan:true"
+  when: dsa_policy_id is none and dsa_policy_name is none

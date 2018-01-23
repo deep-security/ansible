@@ -1,0 +1,21 @@
+---
+- name: Common variables
+  set_fact:
+    deep_security_distribution_os: "{{ ansible_distribution|default('Unknown') }}"
+    deep_security_distribution_version: "{{ ansible_distribution_major_version|default('00')|truncate(2, False, '', 0) }}"
+
+- name: Configure the playbook for the current distribution
+  include_vars: '{{ item }}'
+  with_first_found:
+    - "vars/{{ deep_security_distribution_os }}.yml"
+    - "vars/{{ deep_security_distribution_os }}-{{ deep_security_distribution_version }}.yml"
+    - "vars/default.yml"
+
+- name: Deep Security Agent information
+  debug: msg="Selected agent is {{ deep_security_distribution_os }}-{{ deep_security_distribution_version }}"
+
+- import_tasks: linux.yml
+  when: ansible_os_family != 'Windows'
+
+- import_tasks: windows.yml
+  when: ansible_os_family == 'Windows'
