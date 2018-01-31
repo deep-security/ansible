@@ -3,15 +3,15 @@
 # License as per [repo](master/LICENSE)
 #
 # *********************************************************************
-# * Activate the Deep Security Agent (For both Windows and Linux)
+# * Install the Deep Security Agent (For both Windows and Linux)
 # *********************************************************************
 ---
 - hosts: all
   vars_files:
     - vars/default.yml
   tasks:
-    - include_tasks: tasks/dsa-activate-win.yml
+    - include_tasks: tasks/dsa-install-win.yml
       when: ansible_os_family == "Windows"
 
-    - include_tasks: tasks/dsa-activate-lin.yml
+    - include_tasks: tasks/dsa-install-lin.yml
       when: ansible_os_family != "Windows"

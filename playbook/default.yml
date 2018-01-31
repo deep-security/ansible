@@ -1,0 +1,10 @@
+# Copyright 2018, Trend Micro
+#
+# License as per [repo](master/LICENSE)
+#
+# *********************************************************************
+# * Deploy the Deep Security Agent
+# *********************************************************************
+---
+- import_playbook: dsa-install.yml
+- import_playbook: dsa-activate.yml
