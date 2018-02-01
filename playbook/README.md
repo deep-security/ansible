@@ -1,41 +1,53 @@
-# Plays
+A collection of playbooks to help deploy and manage the Trend Micro Deep Security Agent.
 
-<dl>
-	<dt><a href="dsa-deploy.yml">dsa-deploy.yml</a></dt>
-	<dd>Deploys the Deep Security agent to the node<sup>1</sup></dd>
+## Requirements
 
-	<dt><a href="dsa-activate.yml">dsa-activate.yml</a></dt>
-	<dd>Activate the Deep Security agent when it's already installed on the node</dd>
+All of the playbooks in this repository require a working Deep Security infrastructure. The key component is the Trend Micro Deep Security Manager. The agents (which these playbooks help you manage) do the heavy lifting but the manager gives the marching orders. 
 
-	<dt><a href="dsa-assign-policy-by-id.yml">dsa-assign-policy-by-id.yml</a></dt>
-	<dd>Assign a specific policy to the Deep Security agent by the policy ID</dd>
+There are no specific technical requirements beyond a standard Ansible deployment.
 
-  <dt><a href="dsa-assign-policy-by-name.yml">dsa-assign-policy-by-name.yml</a></dt>
-	<dd>Assign a specific policy to the Deep Security agent by the policy name</dd>
+## Variables
 
-	<dt><a href="dsa-activate.yml">dsa-activate.yml</a></dt>
-	<dd>Activate the Deep Security agent when it's already installed on the node</dd>
+#### Playbook : default.yml
 
-	<dt><a href="dsa-check-in-with-manager.yml">dsa-check-in-with-manager.yml</a></dt>
-	<dd>Asks the Deep Security agent to check in with the Deep Security manager (forced heartbeat</a></dd>
+The "default" playbook imports the "dsa-install" and "dsa-activate" playbooks internally.
 
-	<dt><a href="dsa-create-diagnostic-package.yml">dsa-create-diagnostic-package.yml</a></dt>
-	<dd>Creates a diagnostic package for the agent and send it to the Deep Security manager</dd>
+Key | Type | Description | Default
+----|------|-------------|--------
+dsm_agent_download_hostname | String | Hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com
+dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443
+dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
+dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
+tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
+token | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
+policy_id | String | The Deep Security ID assigned to the policy to apply to the agents on activation. | nil
+force_reactivation | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false
 
-	<dt><a href="dsa-create-integrity-baseline.yml">dsa-create-integrity-baseline.yml</a></dt>
-	<dd>Create a baseline for the integrity monitoring engine</dd>
 
-	<dt><a href="dsa-reset.yml">dsa-reset.yml</a></dt>
-	<dd>Reset the configuration information for the Deep Security agent</dd>
+#### Playbook : dsa-install.yml
 
-	<dt><a href="dsa-recommend-security-policy.yml">dsa-recommend-security-policy.yml</a></dt>
-	<dd>Scans the node and recommends a security policy based on the current profile of the node</dd>
+"dsa-install" playbook will download and install the Deep Security Agent service. Installation will be skipped if agent with same version already installed. If downloaded Deep Security Installer version is newer, then version upgrade will be performed.
 
-	<dt><a href="dsa-scan-for-integrity-changes.yml">dsa-scan-for-integrity-changes.yml</a></dt>
-	<dd>Scans the node for changes to the filesystem and memory based on the rules running in the integrity monitoring engine</dd>
+Key | Type | Description | Default
+----|------|-------------|--------
+dsm_agent_download_hostname | String | Hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com
+dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443
 
-	<dt><a href="dsa-scan-for-malware.yml">dsa-scan-for-malware.yml</a></dt>
-	<dd>Scans the node for malware</dd>
-</dl>
 
-<sup>1</sup>Only the <a href="dsa-deploy.yml">dsa-deploy.yml</a> play requires any data to be passed through vars/. These requirements are outlined in the <a href="vars">/README.md#vars</a> section of the main README. All other recipes run without any additional vars.
+#### Playbook : dsa-activate.yml
+
+"dsa-activate" playbook will activate the Deep Security Agent service by registering into Trend Micro Deep Security Manager. By default, this recipe will skip activation if agent already in activated state, unless 'force_reactivation' attribute is set to 'true'.
+
+Key | Type | Description | Default
+----|------|-------------|--------
+dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
+dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
+tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
+token | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
+policy_id | String | The Deep Security ID assigned to the policy to apply to the agents on activation. | nil
+force_reactivation | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false
+
+
+#### The rest of the playbooks
+
+These playbooks can be used without any additional variables.
