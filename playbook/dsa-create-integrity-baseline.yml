@@ -13,6 +13,7 @@
 
     - shell: /opt/ds_agent/dsa_control --buildBaseline
       when: ansible_os_family != "Windows"
-    
+      become: true
+
     - win_shell: "& 'C:\\Program Files\\Trend Micro\\Deep Security Agent\\dsa_control' --buildBaseline"
       when: ansible_os_family == "Windows"
