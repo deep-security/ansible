@@ -18,9 +18,9 @@ dsm_agent_download_hostname | String | Hostname of the Deep Security Manager. | 
 dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443
 dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
 dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
-tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
-token | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
-policy_id | String | The Deep Security ID assigned to the policy to apply to the agents on activation. | nil
+tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
+token | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. |
+policy_id | String | The Deep Security ID assigned to the policy to apply to the agents on activation. |
 force_reactivation | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false
 
 
@@ -42,9 +42,9 @@ Key | Type | Description | Default
 ----|------|-------------|--------
 dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
 dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
-tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
-token | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. | nil
-policy_id | String | The Deep Security ID assigned to the policy to apply to the agents on activation. | nil
+tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
+token | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. |
+policy_id | String | The Deep Security ID assigned to the policy to apply to the agents on activation. |
 force_reactivation | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false
 
 

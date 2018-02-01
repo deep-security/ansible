@@ -12,23 +12,20 @@ For Deep Security specific issues, please use the regular Trend Micro support ch
 
 ## Usage
 
-1. Clone this git repo.
+* Clone this git repo.
+* Create inventory file.
+* Filled in the required variables for playbook. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
+* Play the default playbook. 
 
-2. Create inventory file.
+``
+ansible-playbook playbook/default.yml --inventory inventory
+``
 
-3. Filled in the required variables for playbook. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
+Or you can run on speific host.
 
-4. Play the default playbook. 
-
-  ``
-  ansible-playbook playbook/default.yml --inventory inventory
-  ``
-
-  Or you can run on speific host.
-
-  ``
-  ansible-playbook playbook/default.yml --inventory inventory --limit "linux"
-  ``
+``
+ansible-playbook playbook/default.yml --inventory inventory --limit "linux"
+``
 
 ## Contributing
 
