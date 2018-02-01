@@ -4,75 +4,39 @@ An Ansible playbook for the Deep Security agent. This allows for the easy deploy
 
 ## Support
 
-This is a community project and while you will see contributions from the Deep Security team, there is no official Trend Micro support for this project. The official documentation for the Deep Security APIs is available from the [Trend Micro Online Help Centre](http://docs.trendmicro.com/en-us/enterprise/deep-security.aspx). 
+This is a community project that is supported by the Deep Security team.
 
 Tutorials, feature-specific help, and other information about Deep Security is available from the [Deep Security Help Center](https://help.deepsecurity.trendmicro.com/Welcome.html). 
 
 For Deep Security specific issues, please use the regular Trend Micro support channels. For issues with the code in this repository, please [open an issue here on GitHub](https://github.com/deep-security/ansible/issues).
 
-<a name="vars"></a>
-## Vars
+## Usage
 
-For play dsa-deploy the follow vars need to be set. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
+1. Clone this git repo.
 
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>dsm_agent_download_hostname</tt></td>
-    <td>String</td>
-    <td>Hostname of the Deep Security manager</td>
-    <td><tt>app.deepsecurity.trendmicro.com</tt></td>
-  </tr>
-  <tr>
-    <td><tt>dsm_agent_download_port</tt></td>
-    <td>Int</td>
-    <td>The port to connect to the Deep Security manager on to download the agents. This is typically the same port as the admin web access</td>
-    <td><tt>443</tt></td>
-  </tr>
-  <tr>
-    <td><tt>dsa_activation_hostname</tt></td>
-    <td>String</td>
-    <td>The hostname for the agents to communicate with once deployed. For Marketplace AMI and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'</td>
-    <td><tt>agents.deepsecurity.trendmicro.com</tt></td>
-  </tr>
-  <tr>
-    <td><tt>dsa_activation_port</tt></td>
-    <td>Int</td>
-    <td>The post to use for the agent heartbeat (the regular communication). For Marketplace AMI and software deployments, the default is 4118</td>
-    <td><tt>443</tt></td>
-  </tr>
-  <tr>
-    <td><tt>tenant_id</tt></td>
-    <td>String</td>
-    <td>In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with</td>
-    <td><tt>nil</tt></td>
-  </tr>
-  <tr>
-    <td><tt>tenant_password</tt></td>
-    <td>String</td>
-    <td>In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with</td>
-    <td><tt>nil</tt></td>
-  </tr>
-  <tr>
-    <td><tt>policy_id</tt></td>
-    <td>String</td>
-    <td>The Deep Security ID assigned to the policy to apply to the agents on activation</td>
-    <td><tt>nil</tt></td>
-  </tr>
-</table>
+2. Create inventory file.
+
+3. Filled in the required variables for playbook. The are contained in the [vars/dsa-deploy.yml](vars/dsa-deploy.yml) file.
+
+4. Play the default playbook. 
+
+  ``
+  ansible-playbook playbook/default.yml --inventory inventory
+  ``
+
+  Or you can run on speific host.
+
+  ``
+  ansible-playbook playbook/default.yml --inventory inventory --limit "linux"
+  ``
 
 ## Contributing
 
 We're always open to PRs from the community. To submit one:
 
 1. Fork the repo
-1. Create a new feature branch
-1. Make your changes
-1. Submit a PR with an explanation of what/why/cavaets/etc.
+2. Create a new feature branch
+3. Make your changes
+4. Submit a PR with an explanation of what/why/cavaets/etc.
 
 We'll review and work with you to make sure that the fix gets pushed out quickly.
