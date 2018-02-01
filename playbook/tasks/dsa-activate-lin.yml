@@ -33,6 +33,7 @@
 
 - shell: /opt/ds_agent/dsa_query -c GetAgentStatus agentCertHash
   register: certHash
+  become: true
 
 - set_fact:
     isActivated: true
