@@ -48,6 +48,4 @@ policy_id | String | The Deep Security ID assigned to the policy to apply to the
 force_reactivation | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false
 
 
-#### The rest of the playbooks
-
-These playbooks can be used without any additional variables.
+#### The other playbooks assumes that Trend Micro Deep Security Agent is installed and activated properly and they can be used without any additional variables.
