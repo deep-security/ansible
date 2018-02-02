@@ -1,0 +1,14 @@
+# Copyright 2018, Trend Micro
+#
+# License as per [repo](master/LICENSE)
+#
+# *********************************************************************
+# * Disable required TTY session for sudo in RHEL and Centos.
+# * "requiretty" blocks Kitchen's Inspect from verifying VM status.
+# * https://github.com/chef/kitchen-inspec/issues/83
+# *********************************************************************
+---
+- hosts: all
+  tasks:
+    - shell: echo "Defaults!ALL !requiretty" >> /etc/sudoers.d/kitchen
+      become: true
