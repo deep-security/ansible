@@ -10,8 +10,8 @@
 # As you add agents to Deep Security, they are automatically made available for download through
 #   the same hostname:port as the Deep Security Manager admin interface. For Marketplace and software deployments, pass
 #   this data through the 'dsm_agent_download_hostname' & 'dsm_agent_download_port' attributes.
-dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
-dsm_agent_download_port: 443
+dsa_download_hostname: app.deepsecurity.trendmicro.com
+dsa_download_port: 443
 
 # Deep Security agents activate on a different port than the admin interface. For Marketplace and
 #    software deployments, 'dsm_agent_activation_hostname' is typically the same as 'dsm_agent_download_hostname'

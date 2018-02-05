@@ -6,12 +6,8 @@
 # * Install the Deep Security Agent (For both Windows and Linux)
 # *********************************************************************
 ---
-- hosts: all
-  vars_files:
-    - vars/default.yml
-  tasks:
-    - include_tasks: tasks/dsa-install-win.yml
-      when: ansible_os_family == "Windows"
+- include_tasks: install-win.yml
+  when: ansible_os_family == "Windows"
 
-    - include_tasks: tasks/dsa-install-lin.yml
-      when: ansible_os_family != "Windows"
+- include_tasks: install-linux.yml
+  when: ansible_os_family != "Windows"
