@@ -76,9 +76,12 @@
 # *********************************************************************
 # * Download Deep Security agent from Deep Security manager
 # *********************************************************************
+- debug:
+    msg: "Download from: https://{{ dsa_download_hostname }}:{{ dsa_download_port }}/{{ agent_relative_path }}/"
+
 - name: Download the Deep Security agent
   get_url: 
-    url: "https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ agent_relative_path }}/" 
+    url: "https://{{ dsa_download_hostname }}:{{ dsa_download_port }}/{{ agent_relative_path }}/" 
     dest: "{{ agent_local_path }}"
     validate_certs: no
     timeout: 300

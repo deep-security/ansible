@@ -10,25 +10,6 @@ Tutorials, feature-specific help, and other information about Deep Security is a
 
 For Deep Security specific issues, please use the regular Trend Micro support channels. For issues with the code in this repository, please [open an issue here on GitHub](https://github.com/deep-security/ansible/issues).
 
-## Usage
-
-* Clone this git repo.
-* Create an inventory file. Refer to follow pages for further information. 
-  * http://docs.ansible.com/ansible/latest/intro_inventory.html
-  * http://docs.ansible.com/ansible/devel/plugins/inventory/yaml.html
-* Filled in the required variables for playbook. The are contained in the [vars/default.yml](vars/default.yml) file.
-* Play the default playbook. 
-
-  ``
-  ansible-playbook playbook/default.yml --inventory inventory
-  ``
-
-  Or you can run on speific host.
-
-  ``
-  ansible-playbook playbook/default.yml --inventory inventory --limit "linux"
-  ``
-
 ## Contributing
 
 We're always open to PRs from the community. To submit one:

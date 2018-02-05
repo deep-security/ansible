@@ -1,0 +1,56 @@
+# Copyright 2018, Trend Micro
+#
+# License as per [repo](master/LICENSE)
+#
+# *********************************************************************
+# * Install, Activate and Manage Trend Micro Deep Security Agent
+# *********************************************************************
+---
+- name: "Listing parameters"
+  debug:
+    msg:
+       - "action                 : {{ action }}"
+       - "dsa_download_hostname  : {{ dsa_download_hostname }}"
+       - "dsa_download_port      : {{ dsa_download_port }}"
+       - "dsa_activation_hostname: {{ dsa_activation_hostname }}"
+       - "dsa_activation_port    : {{ dsa_activation_port }}"
+       - "tenant_id              : {{ tenant_id }}"
+       - "token                  : {{ token }}"
+       - "policy_id              : {{ policy_id }}"
+       - "force_reactivation     : {{ force_reactivation }}"
+
+- name: Deploy (Install then Activate) Trend Micro Deep Security Agent
+  include_tasks: deploy.yml
+  when: action == 'deploy'
+
+- name: Install Trend Micro Deep Security Agent
+  include_tasks: install.yml
+  when: action == 'install'
+
+- name: Activate Trend Micro Deep Security Agent
+  include_tasks: activate.yml
+  when: action == 'activate'
+
+- name: Ask Trend Micro Deep Security Agent to check-in
+  include_tasks: check-in-with-manager.yml
+  when: action == 'check-in-with-manager'
+
+- name: Ask Trend Micro Deep Security Agent to create a diagnostic package
+  include_tasks: create-diagnostic-package.yml
+  when: action == 'create-diagnostic-package'
+
+- name: Create an integrity baseline for the current node
+  include_tasks: create-integrity-baseline.yml
+  when: action == 'create-integrity-baseline'
+
+- name: Recommend a security policy for the node
+  include_tasks: recommend-security-policy.yml
+  when: action == 'recommend-security-policy'
+
+- name: Scan for changes to the nodes integrity
+  include_tasks: scan-for-integrity-changes.yml
+  when: action == 'scan-for-integrity-changes'
+
+- name: Scan the node for malware
+  include_tasks: scan-for-malware.yml
+  when: action == 'scan-for-malware'

@@ -6,5 +6,5 @@
 # * Deploy the Deep Security Agent
 # *********************************************************************
 ---
-- import_playbook: dsa-install.yml
-- import_playbook: dsa-activate.yml
+- include_tasks: install.yml
+- include_tasks: activate.yml

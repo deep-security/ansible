@@ -1,0 +1,56 @@
+---
+dependencies: []
+galaxy_info:
+  description: Install, Activate and Manage Trend Micro Deep Security Agent
+  min_ansible_version: 2.4
+  company: Trend Micro
+  author: Deep Security
+  license: MIT
+  galaxy_tags:
+    - trend-micro
+    - deep-security
+    - dsm
+    - dsa
+  platforms:
+    - name: Amazon
+      versions:
+      - 2016.09
+    - name: Ubuntu
+      versions:
+      - 12.04.5
+      - 14.04.5
+      - 16.04.0
+    - name: Debian
+      versions:
+      - 7
+      - 8
+    - name: RHEL
+      versions:
+      - 6.9
+      - 7.3
+    - name: Windows
+      versions:
+      - 7
+      - 8
+      - 8.1
+      - 10 RS2
+      - 2008R2
+      - 2012
+      - 2012R2
+      - 2016 1609
+    - name: SLES
+      versions:
+      - 11SP4
+      - 12SP3
+    - name: OpenLogic
+      versions:
+      - 6.7
+      - 7.2
+    - name: OracleLinux
+      versions:
+      - 6.9
+      - 7.4
+    - name: CloudLinux
+      versions:
+      - 6.5
+      - 7.1

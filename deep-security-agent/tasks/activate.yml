@@ -6,12 +6,8 @@
 # * Activate the Deep Security Agent (For both Windows and Linux)
 # *********************************************************************
 ---
-- hosts: all
-  vars_files:
-    - vars/default.yml
-  tasks:
-    - include_tasks: tasks/dsa-activate-win.yml
-      when: ansible_os_family == "Windows"
+- include_tasks: activate-win.yml
+  when: ansible_os_family == "Windows"
 
-    - include_tasks: tasks/dsa-activate-lin.yml
-      when: ansible_os_family != "Windows"
+- include_tasks: activate-linux.yml
+  when: ansible_os_family != "Windows"
