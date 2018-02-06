@@ -20,7 +20,7 @@
     msg: 
         - "Could not find command /opt/ds_agent/dsa_query to query DSA certificate."
         - "Please make sure Deep Security Agent has been installed"
-  when: dsaQuery.stat.size is not defined 
+  when: dsaQuery.stat.exists != true 
 
 # *********************************************************************
 # * Check if DSA activated already
@@ -49,20 +49,15 @@
     msg: "Construct dsa_control arguments."
 
 - set_fact:
-    dsa_contrl_argument: "dsm://{{ dsa_activation_hostname }}:{{ dsa_activation_port }}/"
+    dsa_control_argument: "dsm://{{ dsm_agent_activation_hostname }}:{{ dsm_agent_activation_port }}/"
     
 - set_fact:
-    dsa_contrl_argument: "{{ dsa_contrl_argument }} 'tenantID:{{ tenant_id }}' 'token:{{ token }}'"
-  when: >
-        tenant_id != none and 
-        token != none
+    dsa_control_argument: "{{ dsa_control_argument }} 'tenantID:{{ tenant_id }}' 'token:{{ token }}'"
+  when: tenant_id != none and token != none
 
 - set_fact:
-    dsa_contrl_argument: "{{ dsa_contrl_argument }} 'policyid:{{ policy_id }}'"
+    dsa_control_argument: "{{ dsa_control_argument }} 'policyid:{{ policy_id }}'"
   when: policy_id != none   
-
-- debug:
-    msg: "Running dsa_control with args: {{ dsa_contrl_argument }}"
 
 # *********************************************************************
 # * Activate DSA when it's not activated or forecd to reactivate
@@ -72,10 +67,9 @@
         - "Activate DSA when it's not activated or forecd to reactivate."
         - "force_reactivation: {{ force_reactivation }}"
 
-- shell: /opt/ds_agent/dsa_control -r
-  when: isActivated != true or force_reactivation != false
-  become: true
-
-- shell: /opt/ds_agent/dsa_control -a {{ dsa_contrl_argument }}
+- shell: "{{ item }}"
+  with_items:
+    - /opt/ds_agent/dsa_control -r
+    - /opt/ds_agent/dsa_control -a {{ dsa_control_argument }}
   when: isActivated != true or force_reactivation != false
   become: true
