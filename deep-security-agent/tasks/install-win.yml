@@ -13,17 +13,13 @@
   set_fact:
     agent_relative_path: software/agent/Windows/x86_64
     agent_local_path: "{{ ansible_env.TMP }}\\ds_agent.msi"
-  when: >
-        ansible_os_family == "Windows" and
-        ansible_architecture == "64-bit"
+  when: ansible_os_family == "Windows" and ansible_architecture == "64-bit"
 
 - name: Setting facts (Win32)
   set_fact:
     agent_relative_path: software/agent/Windows/i386
     agent_local_path: "{{ ansible_env.TMP }}\\ds_agent.msi"
-  when: >
-        ansible_os_family == "Windows" and
-        ansible_architecture == "32-bit"
+  when: ansible_os_family == "Windows" and ansible_architecture == "32-bit"
 
 - name: Make sure path is set properly
   debug: 
@@ -35,11 +31,11 @@
 # * Download Deep Security agent from Deep Security manager
 # *********************************************************************
 - debug:
-    msg: "Download from: https://{{ dsa_download_hostname }}:{{ dsa_download_port }}/{{ agent_relative_path }}/"
+    msg: "Download from: https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ agent_relative_path }}/"
 
 - name: Download the Deep Security agent (Windows)
   win_get_url:
-    url: "https://{{ dsa_download_hostname }}:{{ dsa_download_port }}/{{ agent_relative_path }}/" 
+    url: "https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ agent_relative_path }}/" 
     dest: "{{ agent_local_path }}"
     validate_certs: no
     timeout: 300

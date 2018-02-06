@@ -1,0 +1,93 @@
+# Copyright 2018, Trend Micro
+#
+# License as per [repo](master/LICENSE)
+#
+---
+# *********************************************************************
+# * Ask the Deep Security agent to check in with the Deep Security manager
+# *********************************************************************
+- name: Ask the Deep Security agent to check in with the Deep Security manager
+  set_fact:
+    dsa_control_argument: "-m"
+  when: action == 'check-in-with-manager'
+
+# *********************************************************************
+# * Ask the Deep Security agent to create a diagnostic package
+# *********************************************************************
+- name: Ask the Deep Security agent to create a diagnostic package
+  set_fact:
+    dsa_control_argument: "-d"
+  when: action == 'create-diagnostic-package'
+
+# *********************************************************************
+# * Ask the Deep Security agent to create an integrity baseline
+# *********************************************************************
+- name: Ask the Deep Security agent to create an integrity baseline
+  set_fact:
+    dsa_control_argument: "--buildBaseline"
+  when: action == 'create-integrity-baseline'
+
+# *********************************************************************
+# * Run recommendation scans for the node
+# *********************************************************************
+- name: Run recommendation scans for the node
+  set_fact:
+    dsa_control_argument: "-m 'RecommendationScan:true'"
+  when: action == 'run-recommendation-scans'
+
+# *********************************************************************
+# * Scan the node for changes to it's integrity
+# *********************************************************************
+- name: Scan the node for changes to it's integrity
+  set_fact:
+    dsa_control_argument: "-m '--scanForChanges'"
+  when: action == 'scan-for-integrity-changes'
+
+# *********************************************************************
+# * Scan the node for malware
+# *********************************************************************
+- name: Scan the node for malware
+  set_fact:
+    dsa_control_argument: "-m 'AntiMalwareManualScan:true'"
+  when: action == 'scan-for-malware'
+
+# *********************************************************************
+# * Check if DSA installed properly
+# *********************************************************************
+- debug:
+    msg: "Check if DSA installed properly."
+
+- stat:
+    path: /opt/ds_agent/dsa_query
+  register: dsaQueryLinux
+  when: ansible_os_family != "Windows"
+
+- win_stat:
+    path: "C:\\Program Files\\Trend Micro\\Deep Security Agent\\dsa_query.cmd"
+  register: dsaQueryWin
+  when: ansible_os_family == "Windows"
+
+- fail:
+    msg: 
+        - "Could not find command /opt/ds_agent/dsa_query to query DSA certificate."
+        - "Please make sure Deep Security Agent has been installed"
+  when: ansible_os_family != "Windows" and dsaQueryLinux.stat.exists != true
+
+- fail:
+    msg: 
+        - "Could not find command C:\\Program Files\\Trend Micro\\Deep Security Agent\\dsa_query.cmd to query DSA certificate."
+        - "Please make sure Deep Security Agent has been installed"
+  when: ansible_os_family == "Windows" and dsaQueryWin.stat.exists != true
+
+# *********************************************************************
+# * Run dsa_control with arguments
+# *********************************************************************
+- debug:
+    msg: "Run dsa_control with arguments: {{ dsa_control_argument }}"
+    
+- shell: /opt/ds_agent/dsa_control {{ dsa_control_argument }}
+  when: ansible_os_family != "Windows"
+  become: true
+
+- win_shell: "& 'C:\\Program Files\\Trend Micro\\Deep Security Agent\\dsa_control' {{ dsa_control_argument }}"
+  when: ansible_os_family == "Windows"

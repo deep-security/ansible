@@ -1,4 +1,4 @@
-# Copyright:: 2018, Trend Micro
+# Copyright 2018, Trend Micro
 #
 # License as per [repo](master/LICENSE)
 #
@@ -10,21 +10,21 @@
 # As you add agents to Deep Security, they are automatically made available for download through
 #   the same hostname:port as the Deep Security Manager admin interface. For Marketplace and software deployments, pass
 #   this data through the 'dsm_agent_download_hostname' & 'dsm_agent_download_port' attributes.
-dsa_download_hostname: app.deepsecurity.trendmicro.com
-dsa_download_port: 443
+dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
+dsm_agent_download_port: 443
 
 # Deep Security agents activate on a different port than the admin interface. For Marketplace and
 #    software deployments, 'dsm_agent_activation_hostname' is typically the same as 'dsm_agent_download_hostname'
 #    but 'dsm_agent_activation_port' is different than 'dsm_agent_download_port'. For Deep Security
 #    as a Service, it's the reverse to make it easy to configure only one outbound port.
-dsa_activation_hostname: agents.deepsecurity.trendmicro.com
-dsa_activation_port: 443
+dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
+dsm_agent_activation_port: 443
 
 # For multi-tenant deployments of Deep Security (such as Deep Security as a Service), every tenant/organization
-#    is assigned a unique 'tenant_id' and 'tenant_password' that is only used for agent activation. You can
+#    is assigned a unique 'tenant_id' and 'token' that is only used for agent activation. You can
 #    find this info from the Support/Help > Deployment Scripts menu in the Deep Security Manager. Select any agent
 #    and then enable "Activate Agent automatically after installation". This places the tenant_id and 
-#    tenant_password in the script the wizard is building for you.
+#    token in the script the wizard is building for you.
 tenant_id:
 token:
 
@@ -33,8 +33,9 @@ token:
 # Optional attributes #
 #######################
 
-# The ID of the policy you want to initialize the agent with. This takes precedence over the 
-#    'policy_name' setting. 
+# The ID of the policy you want to initialize the agent with.
+# If you don't specify 'policy_id' then agent will activate without any policy, then you assign policy through
+# Deep Security Manager.
 policy_id:
 
 # Whether to force re-activation even Deep Security Agent has been activated

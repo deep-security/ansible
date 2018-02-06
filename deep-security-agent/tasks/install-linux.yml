@@ -17,31 +17,22 @@
 - name: Setting facts (yum, zypper) 
   set_fact:
     agent_local_path: /tmp/ds_agent.rpm
-  when: >
-        ansible_pkg_mgr == "yum" or
-        ansible_pkg_mgr == "zypper"
+  when: ansible_pkg_mgr == "yum" or ansible_pkg_mgr == "zypper"
 
-- name: Setting facts (svr4pkg) 
-  set_fact:
-    agent_local_path: /tmp/ds_agent.pkg.gz
-  when: ansible_pkg_mgr == "svr4pkg"
-
-- name: Setting facts (pkg5) 
-  set_fact:
-    agent_local_path: /tmp/ds_agent.p5p.gz
-  when: ansible_pkg_mgr == "pkg5"
-
-- name: Setting facts (Amazon) 
+- name: Setting facts (Amazon Linux) 
   set_fact:
     agent_relative_path: software/agent/amzn1/{{ ansible_architecture }}
-  when: ansible_distribution == "Amazon"
+  when: (ansible_kernel | regex_search('(amzn1)')) == "amzn1"
+
+- name: Setting facts (Amazon Linux 2) 
+  set_fact:
+    agent_relative_path: software/agent/amzn2/{{ ansible_architecture }}
+  when: (ansible_kernel | regex_search('(amzn2)')) == "amzn2"  
 
 - name: Setting facts (CentOS, RHEL) 
   set_fact:
     agent_relative_path: software/agent/RedHat_EL{{ ansible_distribution_major_version }}/{{ ansible_architecture }}
-  when: >
-        ansible_distribution == "CentOS" or
-        ansible_distribution == "RedHat"
+  when: ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
 
 - name: Setting facts (Debian) 
   set_fact:
@@ -77,11 +68,11 @@
 # * Download Deep Security agent from Deep Security manager
 # *********************************************************************
 - debug:
-    msg: "Download from: https://{{ dsa_download_hostname }}:{{ dsa_download_port }}/{{ agent_relative_path }}/"
+    msg: "Download from: https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ agent_relative_path }}/"
 
 - name: Download the Deep Security agent
   get_url: 
-    url: "https://{{ dsa_download_hostname }}:{{ dsa_download_port }}/{{ agent_relative_path }}/" 
+    url: "https://{{ dsm_agent_download_hostname }}:{{ dsm_agent_download_port }}/{{ agent_relative_path }}/" 
     dest: "{{ agent_local_path }}"
     validate_certs: no
     timeout: 300
@@ -98,7 +89,7 @@
 - fail:
     msg:
       - "Downloaded file size is not valid. There are two possiblities : 1. The OS platform is not supported. 2. Deep Security Manager don't provide agent software package installer for your OS platform."
-      - "Please verify that agent software package for your platform is available using this reference article https://help.deepsecurity.trendmicro.com/10/0/Get-Started/Install/import-agent-software.html?redirected=true&Highlight=download"
+      - "Please verify that agent software package for your platform is available using this reference article https://help.deepsecurity.trendmicro.com/Get-Started/Install/import-agent-software.html"
   when: agent_file.stat.size == 0
 
 # *********************************************************************
