@@ -12,9 +12,13 @@ There are no specific technical requirements beyond a standard Ansible deploymen
 No dependency is required.
 
 
-## Usage
+## Variables
 
-A sample playbook:
+
+#### Task : deploy.yml
+###### action: deploy
+
+The "deploy" task includes the "install" and "activate" playbooks internally.
 
 ```yaml
 - hosts: all
@@ -31,16 +35,6 @@ A sample playbook:
       force_reactivation: false
 ```
 
-Please refer the following sections for required variables.
-
-
-## Variables
-
-#### Task : deploy.yml
-###### Action: deploy
-
-The "deploy" task includes the "install" and "activate" playbooks internally.
-
 Key | Type | Description | Default
 ----|------|-------------|--------
 dsm_agent_download_hostname | String | Hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com
@@ -54,9 +48,18 @@ force_reactivation | Boolean | Whether to force re-activation even Deep Security
 
 
 #### Task : install.yml
-###### Action: install
+###### action: install
 
 "install" task will download and install the Deep Security Agent service. Installation will be skipped if agent with same version already installed. If downloaded Deep Security Installer version is newer, then version upgrade will be performed.
+
+```yaml
+- hosts: all
+  roles:
+    - role: deep-security.deep-security-agent
+      action: install
+      dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
+      dsm_agent_download_port: 443
+```
 
 Key | Type | Description | Default
 ----|------|-------------|--------
@@ -65,9 +68,22 @@ dsm_agent_download_port | Int | The port to connect to the Deep Security Manager
 
 
 #### Task : activate.yml
-###### Action: activate
+###### action: activate
 
 "activate" task will activate the Deep Security Agent service by registering into Trend Micro Deep Security Manager. By default, this recipe will skip activation if agent already in activated state, unless 'force_reactivation' attribute is set to 'true'.
+
+```yaml
+- hosts: all
+  roles:
+    - role: deep-security.deep-security-agent
+      action: activate
+      dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
+      dsm_agent_activation_port: 443
+      tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
+      token: 111A111A-1A1A-11AA-AAA-11AA11111111
+      policy_id: 1
+      force_reactivation: false
+```
 
 Key | Type | Description | Default
 ----|------|-------------|--------
@@ -80,10 +96,7 @@ force_reactivation | Boolean | Whether to force re-activation even Deep Security
 
 
 #### Task : manage.yml
-
-"manage" task will help users to operate the Deep Security Agent service without logining into Trend Micro Deep Security Manager. All available actions assume that Trend Micro Deep Security Agent is installed and activated properly and can be triggered without any additional variables.
-
-###### Actions:
+###### action:
 
 * check-in-with-manager
 * create-diagnostic-package
@@ -91,3 +104,12 @@ force_reactivation | Boolean | Whether to force re-activation even Deep Security
 * run-recommendation-scans
 * scan-for-integrity-changes
 * scan-for-malware
+
+"manage" task will help users to operate the Deep Security Agent service without logining into Trend Micro Deep Security Manager. All available actions assume that Trend Micro Deep Security Agent is installed and activated properly and can be triggered without any additional variables.
+
+```yaml
+- hosts: all
+  roles:
+    - role: deep-security.deep-security-agent
+      action: check-in-with-manager | create-diagnostic-package | ...
+```
