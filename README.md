@@ -1,6 +1,6 @@
 # Ansible
 
-An Ansible playbook for the Deep Security agent. This allows for the easy deployment of the Deep Security agent as well as taking some common actions from the agent.
+An Ansible playbook for the Deep Security Agent. This will allow the user to easily deploy the Deep Security Agent as well as take some common actions from the agent.
 
 ## Support
 
@@ -14,9 +14,9 @@ For Deep Security specific issues, please use the regular Trend Micro support ch
 
 We're always open to PRs from the community. To submit one:
 
-1. Fork the repo
-1. Create a new feature branch
-1. Make your changes
-1. Submit a PR with an explanation of what/why/cavaets/etc.
+1. Fork the repo.
+2. Create a new feature branch.
+3. Make your changes.
+4. Submit a PR with an explanation of what/why/cavaets/etc.
 
-We'll review and work with you to make sure that the fix gets pushed out quickly.
+We'll review your content and work with you to make sure the fix gets pushed out quickly.
