@@ -15,6 +15,7 @@
        - "dsm_agent_activation_hostname: {{ dsm_agent_activation_hostname }}"
        - "dsm_agent_activation_port    : {{ dsm_agent_activation_port }}"
        - "policy_id                    : {{ policy_id }}"
+       - "group_id                     : {{ group_id }}"
        - "force_reactivation           : {{ force_reactivation }}"
 
 - name: Deploy (Install then Activate) Trend Micro Deep Security Agent

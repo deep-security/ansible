@@ -26,6 +26,7 @@ dsm_agent_activation_port: 443
 #    and then enable "Activate Agent automatically after installation". This places the tenant_id and 
 #    token in the script the wizard is building for you.
 tenant_id:
+tenant_password:
 token:
 
 
@@ -37,6 +38,9 @@ token:
 # If you don't specify 'policy_id' then agent will activate without any policy, then you assign policy through
 # Deep Security Manager.
 policy_id:
+
+# The ID of the group you want to initialize the agent with.
+group_id:
 
 # Whether to force re-activation even Deep Security Agent has been activated
 force_reactivation: false

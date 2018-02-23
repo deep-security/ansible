@@ -56,8 +56,16 @@
   when: tenant_id != none and token != none
 
 - set_fact:
+    dsa_control_argument: "{{ dsa_control_argument }} 'tenantID:{{ tenant_id }}' 'tenantPassword:{{ tenant_password }}'"
+  when: tenant_id != none and tenant_password != none and token == none
+
+- set_fact:
     dsa_control_argument: "{{ dsa_control_argument }} 'policyid:{{ policy_id }}'"
-  when: policy_id != none   
+  when: policy_id != none
+
+- set_fact:
+    dsa_control_argument: "{{ dsa_control_argument }} 'groupid:{{ group_id }}'"
+  when: group_id != none
 
 # *********************************************************************
 # * Activate DSA when it's not activated or forecd to reactivate
@@ -66,6 +74,7 @@
     msg: 
         - "Activate DSA when it's not activated or forecd to reactivate."
         - "force_reactivation: {{ force_reactivation }}"
+        - "dsa_control_argument: {{ dsa_control_argument }}"
 
 - shell: "{{ item }}"
   with_items:
