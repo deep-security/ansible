@@ -20,7 +20,7 @@ galaxy_info:
     - dsm
     - dsa
   platforms:
-    - name: Amazon Linux
+    - name: Amazon
       versions:
       - 2016.09
     - name: Debian
