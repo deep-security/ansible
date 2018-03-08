@@ -10,21 +10,6 @@ Tutorials, feature-specific help, and other information about Deep Security is a
 
 For Deep Security specific issues, please use the regular Trend Micro support channels. For issues with the code in this repository, please [open an issue here on GitHub](https://github.com/deep-security/ansible/issues).
 
-## Contributing
-
-We're always open to PRs from the community. To submit one:
-
-1. Fork the repo.
-2. Create a new feature branch.
-3. Make your changes.
-4. Submit a PR with an explanation of what/why/cavaets/etc.
-
-We'll review your content and work with you to make sure the fix gets pushed out quickly.
-
-## About
-
-A collection of playbooks to help deploy and manage the Trend Micro Deep Security Agent.
-
 ## Requirements
 
 All of the tasks in this repository require a working Deep Security infrastructure. The key component is the Trend Micro Deep Security Manager. The Deep Security Agents (which these playbooks help you manage) do the heavy lifting but the Deep Security Manager gives the orders. 
@@ -123,3 +108,14 @@ The "manage" task will help users operate the Deep Security Agent without logini
     - role: deep-security.deep-security-agent
       action: check-in-with-manager | create-diagnostic-package | ...
 ```
+
+## Contributing
+
+We're always open to PRs from the community. To submit one:
+
+1. Fork the repo.
+2. Create a new feature branch.
+3. Make your changes.
+4. Submit a PR with an explanation of what/why/cavaets/etc.
+
+We'll review your content and work with you to make sure the fix gets pushed out quickly. For further help, please contact the Trend Micro open source support team at deepsecurityopensource@trendmicro.com
