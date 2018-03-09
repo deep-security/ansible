@@ -74,7 +74,6 @@
     msg: 
         - "Activate DSA when it's not activated or forecd to reactivate."
         - "force_reactivation: {{ force_reactivation }}"
-        - "dsa_control_argument: {{ dsa_control_argument }}"
 
 - shell: "{{ item }}"
   with_items:
