@@ -36,8 +36,9 @@ A sample playbook:
     dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
     dsm_agent_activation_port: 443
     tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
-    token: 111A111A-1A1A-11AA-AAA-11AA11111111
+    token | tenant_password: 111A111A-1A1A-11AA-AAA-11AA11111111
     policy_id: 1
+    group_id: 1
     force_reactivation: false
 ```
 
@@ -59,8 +60,9 @@ dsm_agent_download_port | Int | The port to connect to the Deep Security Manager
 dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
 dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
 tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
-token | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
+token/tenant_password | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. In latest Deep Security Manager, "tenant_password" has been replaced with "token". "tenant_password" has been kept for backwards compatibility |
 policy_id | String | The Deep Security ID assigned to the policy and applied to the agents on activation. |
+group_id | String | The Deep Security ID assigned to the computer group and applied to the agents on activation. |
 force_reactivation | Boolean | Force re-activation even though the Deep Security Agent has already been activated. | false
 
 
@@ -85,8 +87,9 @@ Key | Type | Description | Default
 dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once they are deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
 dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
 tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
-token | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
+token/tenant_password | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. In latest Deep Security Manager, "tenant_password" has been replaced with "token". "tenant_password" has been kept for backwards compatibility |
 policy_id | String | The Deep Security ID assigned to the policy and applied to the agents on activation. |
+group_id | String | The Deep Security ID assigned to the computer group and applied to the agents on activation. |
 force_reactivation | Boolean | Force re-activation even though the Deep Security Agent has already been activated. | false
 
 
