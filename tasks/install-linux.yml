@@ -126,8 +126,12 @@
 # *********************************************************************
 # * Make sure the service is running
 # *********************************************************************
+
+# We ignore "[warnning]Consider using service module rather than running service" here because there's no proper service checking function in "Service" module
 - name: Get service 'ds_agent' status 
   shell: "service ds_agent status"
+  args: 
+    warn: false
   register: result
   become: true
 

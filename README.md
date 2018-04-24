@@ -29,17 +29,17 @@ A sample playbook:
 ```yaml
 - hosts: all
   roles:
-    -role: deep-security.deep-security-agent
-    action: deploy
-    dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
-    dsm_agent_download_port: 443
-    dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
-    dsm_agent_activation_port: 443
-    tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
-    token | tenant_password: 111A111A-1A1A-11AA-AAA-11AA11111111
-    policy_id: 1
-    group_id: 1
-    force_reactivation: false
+    - role: deep-security.deep-security-agent
+      action: deploy
+      dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
+      dsm_agent_download_port: 443
+      dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
+      dsm_agent_activation_port: 443
+      tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
+      token | tenant_password: 111A111A-1A1A-11AA-AAA-11AA11111111
+      policy_id: 1
+      group_id: 1
+      force_reactivation: false
 ```
 
 Please refer to the following sections for required variables.
