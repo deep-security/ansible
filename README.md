@@ -122,6 +122,13 @@ policy | Int | The ID of the Deep Security policy |
   roles:
     - role: deep-security.deep-security-agent
       action: check-in-with-manager | create-diagnostic-package | ...
+      
+- name: "Set policy for webservers"
+  hosts: web
+  roles:
+    - role: deep-security.deep-security-agent
+      action: set-policy
+      policy: MyCompany - Webserver            
 ```
 
 ## Contributing
