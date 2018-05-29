@@ -50,6 +50,30 @@
   set_fact:
     dsa_control_argument: "-m 'AntiMalwareManualScan:true'"
   when: action == 'scan-for-malware'
+  
+# *********************************************************************
+# * Set a policy by name
+# *********************************************************************
+- name: Set policy by name
+  set_fact:
+    dsa_control_argument: "-m 'policy:{{ policy }}'"
+  when: action == 'set-policy'
+  
+# *********************************************************************
+# * Set a policy by ID
+# *********************************************************************
+- name: Set policy by ID
+  set_fact:
+    dsa_control_argument: "-m 'policyid:{{ policy }}'"
+  when: action == 'set-policyid'
+
+# *********************************************************************
+# * Request an update of the configuration for the node
+# *********************************************************************
+- name: Request an update of the configuration for the node
+  set_fact:
+    dsa_control_argument: "-m 'UpdateConfiguration:true'"
+  when: action == 'update-configuration'
 
 # *********************************************************************
 # * Check if DSA installed properly
