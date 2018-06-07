@@ -112,13 +112,13 @@ The "manage" task will help users operate the Deep Security Agent without logini
       action: check-in-with-manager | create-diagnostic-package | ...
 ```
 
-## Contributing
+## How to contribute
 
 We're always open to PRs from the community. To submit one:
 
 1. Fork the repo.
 2. Create a new feature branch.
 3. Make your changes.
-4. Submit a PR with an explanation of what/why/cavaets/etc.
+4. Submit a PR with an explanation of your changes or additions.
 
-We'll review your content and work with you to make sure the fix gets pushed out quickly. For further help, please contact the Trend Micro open source support team at deepsecurityopensource@trendmicro.com
+We'll review your content and work with you to make sure the fix gets pushed out quickly. For further help, please contact the Trend Micro open source support team at deepsecurityopensource@trendmicro.com.
