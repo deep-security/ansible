@@ -103,19 +103,19 @@ force_reactivation | Boolean | Force re-activation even though the Deep Security
 * scan-for-integrity-changes
 * scan-for-malware
 
-The "manage" task will help users operate the Deep Security Agent without logining into the Deep Security Manager. All of the available actions assume that the Deep Security Agent is installed and activated properly. Most of the actions can be triggered without any additional variables. Only set-policy and set-policyid need the corresponding policy name or id.
+The "manage" task will help users operate the Deep Security Agent without logining in to the Deep Security Manager. All of the available actions assume that the Deep Security Agent is installed and activated properly. Most of the actions can be triggered without any additional variables. Only set-policy and set-policyid need the corresponding policy name or id.
 
-###### action: set-policy
-
-Key | Type | Description | Default
-----|------|-------------|--------
-policy | String | The name of the Deep Security policy | 
-
-###### action: set-policyid
+###### action: set-policy-by-name
 
 Key | Type | Description | Default
 ----|------|-------------|--------
-policy | Int | The ID of the Deep Security policy | 
+policy_name | String | The name of the Deep Security policy | 
+
+###### action: set-policy-by-id
+
+Key | Type | Description | Default
+----|------|-------------|--------
+policy_id | Int | The ID of the Deep Security policy | 
 
 ```yaml
 - hosts: all
@@ -127,8 +127,8 @@ policy | Int | The ID of the Deep Security policy |
   hosts: web
   roles:
     - role: deep-security.deep-security-agent
-      action: set-policy
-      policy: MyCompany - Webserver            
+      action: set-policy-by-name
+      policy_name: MyCompany - Webserver            
 ```
 
 ## How to contribute
