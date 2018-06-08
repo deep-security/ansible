@@ -1,10 +1,10 @@
 # Ansible
 
-An Ansible playbook for the Deep Security Agent. This will allow the user to easily deploy the Deep Security Agent as well as take some common actions from the agent.
+An Ansible playbook for the Deep Security Agent. This playbook allows you to easily deploy the Deep Security Agent as well as take some common actions from the agent.
 
 ## Support
 
-This is a community project that is supported by the Deep Security team.
+This is a community project that is supported by the Trend Micro Deep Security team.
 
 Tutorials, feature-specific help, and other information about Deep Security is available from the [Deep Security Help Center](https://help.deepsecurity.trendmicro.com/Welcome.html). 
 
@@ -19,12 +19,12 @@ There are no specific technical requirements beyond a standard Ansible deploymen
 
 ## Dependencies
 
-No dependency is required.
+There are no dependencies.
 
 
 ## Usage
 
-A sample playbook:
+Below is a sample playbook:
 
 ```yaml
 - hosts: all
@@ -42,45 +42,45 @@ A sample playbook:
       force_reactivation: false
 ```
 
-Please refer to the following sections for required variables.
+Please refer to the [Variables](#variables) section for required variables.
 
 
-## Variables
+## Variables<a id="variables"></a>
 
 
 #### Task : deploy.yml
 ###### action: deploy
 
-The "deploy" task includes the "install" and "activate" playbooks internally.
+The <code>deploy</code> task includes the <code>install</code> and <code>activate</code> playbooks internally.
 
 Key | Type | Description | Default
 ----|------|-------------|--------
 dsm_agent_download_hostname | String | The hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com
-dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443
-dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
-dsm_agent_activation_port | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
+dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager administration interface. | 443
+dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments, this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
+dsm_agent_activation_port | Int | The port used for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
 tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. |
 token/tenant_password | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. In latest Deep Security Manager, "tenant_password" has been replaced with "token". "tenant_password" has been kept for backwards compatibility |
 policy_id | String | The Deep Security ID assigned to the policy and applied to the agents on activation. |
 group_id | String | The Deep Security ID assigned to the computer group and applied to the agents on activation. |
-force_reactivation | Boolean | Force re-activation even though the Deep Security Agent has already been activated. | false
+force_reactivation | Boolean | Force re-activation even if the Deep Security Agent has already been activated. | false
 
 
 #### Task : install.yml
 ###### action: install
 
-The "install" task will download and install the Deep Security Agent. The installation will be skipped if agent with the same version is already installed. If a newer version of Deep Security Installer is already installed, then the version will be upgraded.
+The <code>install</code> task downloads and installs the Deep Security Agent. The installation is skipped if an agent of the same version is already installed. If a newer version of Deep Security Installer is already installed, then the version is upgraded.
 
 Key | Type | Description | Default
 ----|------|-------------|--------
 dsm_agent_download_hostname | String | The hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com
-dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443
+dsm_agent_download_port | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager administration interface. | 443
 
 
 #### Task : activate.yml
 ###### action: activate
 
-The "activate" task will activate the Deep Security Agent by registering into Trend Micro Deep Security Manager. By default, activation will be skipped if the agent is already activated, unless the 'force_reactivation' attribute is set to 'true'.
+The <code>activate</code> task activates the Deep Security Agent by registering it in Trend Micro Deep Security Manager. By default, activation is skipped if the agent is already activated, unless the <code>force_reactivation</code> attribute is set to <code>true</code>.
 
 Key | Type | Description | Default
 ----|------|-------------|--------
@@ -103,7 +103,7 @@ force_reactivation | Boolean | Force re-activation even though the Deep Security
 * scan-for-integrity-changes
 * scan-for-malware
 
-The "manage" task will help users operate the Deep Security Agent without logining in to the Deep Security Manager. All of the available actions assume that the Deep Security Agent is installed and activated properly. Most of the actions can be triggered without any additional variables. Only set-policy and set-policyid need the corresponding policy name or id.
+The <code>manage</code> task lets you operate the Deep Security Agent without requiring you to log in to the Deep Security Manager. All of the available actions assume that the Deep Security Agent is installed and activated properly. Most of the actions can be triggered without any additional variables. Only <code>set-policy</code> and <code>set-policyid</code> need a corresponding policy name or id.
 
 ###### action: set-policy-by-name
 
