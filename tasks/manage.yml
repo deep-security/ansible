@@ -56,16 +56,16 @@
 # *********************************************************************
 - name: Set policy by name
   set_fact:
-    dsa_control_argument: "-m 'policy:{{ policy }}'"
-  when: action == 'set-policy'
+    dsa_control_argument: "-m 'policy:{{ policy_name }}'"
+  when: action == 'set-policy-by-name'
   
 # *********************************************************************
 # * Set a policy by ID
 # *********************************************************************
 - name: Set policy by ID
   set_fact:
-    dsa_control_argument: "-m 'policyid:{{ policy }}'"
-  when: action == 'set-policyid'
+    dsa_control_argument: "-m 'policyid:{{ policy_id }}'"
+  when: action == 'set-policy-by-id'
 
 # *********************************************************************
 # * Request an update of the configuration for the node
