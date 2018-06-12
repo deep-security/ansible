@@ -9,7 +9,7 @@
 - name: Ask the Deep Security agent to check in with the Deep Security manager
   set_fact:
     dsa_control_argument: "-m"
-  when: action == 'check-in-with-manager'
+  when: operation == 'check-in-with-manager'
 
 # *********************************************************************
 # * Ask the Deep Security agent to create a diagnostic package
@@ -17,7 +17,7 @@
 - name: Ask the Deep Security agent to create a diagnostic package
   set_fact:
     dsa_control_argument: "-d"
-  when: action == 'create-diagnostic-package'
+  when: operation == 'create-diagnostic-package'
 
 # *********************************************************************
 # * Ask the Deep Security agent to create an integrity baseline
@@ -25,7 +25,7 @@
 - name: Ask the Deep Security agent to create an integrity baseline
   set_fact:
     dsa_control_argument: "--buildBaseline"
-  when: action == 'create-integrity-baseline'
+  when: operation == 'create-integrity-baseline'
 
 # *********************************************************************
 # * Run recommendation scans for the node
@@ -33,7 +33,7 @@
 - name: Run recommendation scans for the node
   set_fact:
     dsa_control_argument: "-m 'RecommendationScan:true'"
-  when: action == 'run-recommendation-scans'
+  when: operation == 'run-recommendation-scans'
 
 # *********************************************************************
 # * Scan the node for changes to it's integrity
@@ -41,7 +41,7 @@
 - name: Scan the node for changes to it's integrity
   set_fact:
     dsa_control_argument: "-m '--scanForChanges'"
-  when: action == 'scan-for-integrity-changes'
+  when: operation == 'scan-for-integrity-changes'
 
 # *********************************************************************
 # * Scan the node for malware
@@ -49,7 +49,7 @@
 - name: Scan the node for malware
   set_fact:
     dsa_control_argument: "-m 'AntiMalwareManualScan:true'"
-  when: action == 'scan-for-malware'
+  when: operation == 'scan-for-malware'
   
 # *********************************************************************
 # * Set a policy by name
@@ -57,7 +57,7 @@
 - name: Set policy by name
   set_fact:
     dsa_control_argument: "-m 'policy:{{ policy_name }}'"
-  when: action == 'set-policy-by-name'
+  when: operation == 'set-policy-by-name'
   
 # *********************************************************************
 # * Set a policy by ID
@@ -65,7 +65,7 @@
 - name: Set policy by ID
   set_fact:
     dsa_control_argument: "-m 'policyid:{{ policy_id }}'"
-  when: action == 'set-policy-by-id'
+  when: operation == 'set-policy-by-id'
 
 # *********************************************************************
 # * Request an update of the configuration for the node
@@ -73,7 +73,7 @@
 - name: Request an update of the configuration for the node
   set_fact:
     dsa_control_argument: "-m 'UpdateConfiguration:true'"
-  when: action == 'update-configuration'
+  when: operation == 'update-configuration'
 
 # *********************************************************************
 # * Check if DSA installed properly
