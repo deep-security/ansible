@@ -96,7 +96,7 @@
 # * Install the agent
 # *********************************************************************
 # Both RPM and DPKG managers will do upgrade if downloaded package version is newer than installed. 
-# If versions are equals, no action. If older than installed, some managers will throw error.
+# If versions are equals, no operation. If older than installed, some managers will throw error.
 - name: Install the Deep Security agent (yum)
   yum: 
     name: "{{ agent_local_path }}"

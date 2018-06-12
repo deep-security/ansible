@@ -1,6 +1,6 @@
 # Ansible
 
-An Ansible playbook for the Deep Security Agent. This playbook allows you to easily deploy the Deep Security Agent as well as take some common actions from the agent.
+An Ansible playbook for the Deep Security Agent. This playbook allows you to easily deploy the Deep Security Agent as well as take some common operations from the agent.
 
 ## Support
 
@@ -31,7 +31,7 @@ Below are sample usages for the playbook:
 - hosts: all
   roles:
     - role: deep-security.deep-security-agent
-      action: deploy
+      operation: deploy
       dsm_agent_download_hostname: deep.security.manager.host
       dsm_agent_download_port: 4119
       dsm_agent_activation_hostname: deep.security.manager.host
@@ -46,7 +46,7 @@ Below are sample usages for the playbook:
 - hosts: all
   roles:
     - role: deep-security.deep-security-agent
-      action: deploy
+      operation: deploy
       dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
       dsm_agent_download_port: 443
       dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
@@ -58,11 +58,11 @@ Below are sample usages for the playbook:
       force_reactivation: false
 ```
 
-<a id="actions"></a>
-## Actions
-Definition for possible actions to be performed in this role, for required variables please refer to [Variables](#variables).
+<a id="operations"></a>
+## Operations
+Definition for possible operations to be performed in this role, for required variables please refer to [Variables](#variables).
 
-Action | Description | Variables
+Operation | Description | Variables
 ------------|-------------|-------------------
 deploy | The <code>deploy</code> task includes the <code>install</code> and <code>activate</code> playbooks internally. | dsm_agent_download_hostname <br /> dsm_agent_download_port <br /> dsm_agent_activation_hostname	 <br/> dsm_agent_activation_port <br/> policy_id (Optional) <br/> group_id (Optional) <br/> force_reactivation (Optional) <br/><br/> **For multi-tenancy only:** <br/> tenant_id <br /> token/tenant_password
 install | The install task downloads and installs the Deep Security Agent. The installation is skipped if an agent of the same version is already installed. If a newer version of Deep Security Installer is already installed, then the version is upgraded. | dsm_agent_download_hostname <br/> dsm_agent_download_port
@@ -82,7 +82,8 @@ update-configuration | Instruct the Deep Security Manager to perform a "Send Pol
 
 Key | Type | Description | Sample
 ----|------|-------------|--------
-action | String | Name of the action to be performed | See [Actions](#actions)
+action | String | Name of the operation to be performed **(deprecated &mdash; please use operation instead)** | See [Operations](#operations)
+operation | String | Name of the operation to be performed | See [Operations](#operations)
 dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments, this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
 dsm_agent_activation_port | Integer | The port used for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
 dsm_agent_download_hostname | String | The hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com
