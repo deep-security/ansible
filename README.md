@@ -82,7 +82,7 @@ update-configuration | Instruct the Deep Security Manager to perform a "Send Pol
 
 Key | Type | Description | Sample
 ----|------|-------------|--------
-action | String | Name of the operation to be performed **(deprecated &mdash; please use operation instead)** | See [Operations](#operations)
+action | String | Name of the operation to be performed **(deprecated&mdash;please use operation instead)** | See [Operations](#operations)
 operation | String | Name of the operation to be performed | See [Operations](#operations)
 dsm_agent_activation_hostname | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments, this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com
 dsm_agent_activation_port | Integer | The port used for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443
