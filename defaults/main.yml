@@ -34,10 +34,11 @@ token:
 # Optional attributes #
 #######################
 
-# The ID of the policy you want to initialize the agent with.
+# The ID or name of the policy you want to initialize the agent with.
 # If you don't specify 'policy_id' then agent will activate without any policy, then you assign policy through
 # Deep Security Manager.
 policy_id:
+policy_name:
 
 # The ID of the group you want to initialize the agent with.
 group_id:
