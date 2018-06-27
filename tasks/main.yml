@@ -25,6 +25,7 @@
        - "dsm_agent_activation_hostname: {{ dsm_agent_activation_hostname }}"
        - "dsm_agent_activation_port    : {{ dsm_agent_activation_port }}"
        - "policy_id                    : {{ policy_id }}"
+       - "policy_name                  : {{ policy_name }}"
        - "group_id                     : {{ group_id }}"
        - "force_reactivation           : {{ force_reactivation }}"
 
