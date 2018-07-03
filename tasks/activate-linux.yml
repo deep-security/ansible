@@ -17,10 +17,10 @@
   register: dsaQuery
 
 - fail:
-    msg: 
+    msg:
         - "Could not find command /opt/ds_agent/dsa_query to query DSA certificate."
         - "Please make sure Deep Security Agent has been installed"
-  when: dsaQuery.stat.exists != true 
+  when: dsaQuery.stat.exists != true
 
 # *********************************************************************
 # * Check if DSA activated already
@@ -50,7 +50,7 @@
 
 - set_fact:
     dsa_control_argument: "dsm://{{ dsm_agent_activation_hostname }}:{{ dsm_agent_activation_port }}/"
-    
+
 - set_fact:
     dsa_control_argument: "{{ dsa_control_argument }} 'tenantID:{{ tenant_id }}' 'token:{{ token }}'"
   when: tenant_id != none and token != none
@@ -64,6 +64,10 @@
   when: policy_id != none
 
 - set_fact:
+    dsa_control_argument: "{{ dsa_control_argument }} 'policy:{{ policy_name }}'"
+  when: policy_name != none
+
+- set_fact:
     dsa_control_argument: "{{ dsa_control_argument }} 'groupid:{{ group_id }}'"
   when: group_id != none
 
@@ -71,7 +75,7 @@
 # * Activate DSA when it's not activated or forecd to reactivate
 # *********************************************************************
 - debug:
-    msg: 
+    msg:
         - "Activate DSA when it's not activated or forecd to reactivate."
         - "force_reactivation: {{ force_reactivation }}"
 
