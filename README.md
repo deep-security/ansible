@@ -64,11 +64,11 @@ Definition for possible operations to be performed in this role, for required va
 
 Operation | Description | Variables
 ------------|-------------|-------------------
-deploy | The <code>deploy</code> task includes the <code>install</code> and <code>activate</code> playbooks internally. | dsm_agent_download_hostname <br /> dsm_agent_download_port <br /> dsm_agent_activation_hostname	 <br/> dsm_agent_activation_port <br/> policy_id (Optional) <br/> group_id (Optional) <br/> force_reactivation (Optional) <br/><br/> **For multi-tenancy only:** <br/> tenant_id <br /> token/tenant_password
+deploy | The <code>deploy</code> task includes the <code>install</code> and <code>activate</code> playbooks internally. | dsm_agent_download_hostname <br /> dsm_agent_download_port <br /> dsm_agent_activation_hostname	 <br/> dsm_agent_activation_port <br/> policy_id/policy_name (Optional) <br/> group_id (Optional) <br/> force_reactivation (Optional) <br/><br/> **For multi-tenancy only:** <br/> tenant_id <br /> token/tenant_password
 install | The install task downloads and installs the Deep Security Agent. The installation is skipped if an agent of the same version is already installed. If a newer version of Deep Security Installer is already installed, then the version is upgraded. | dsm_agent_download_hostname <br/> dsm_agent_download_port
-activate | The activate task activates the Deep Security Agent by registering it in Trend Micro Deep Security Manager. By default, activation is skipped if the agent is already activated, unless the force_reactivation attribute is set to true. | dsm_agent_activation_hostname <br/> dsm_agent_activation_port <br/> policy_id (Optional) <br/> group_id (Optional) <br/> force_reactivation (Optional) <br/><br/> **For multi-tenancy only:** <br/> tenant_id <br/> token/tenant_password
-set-policy-by-name | Change the agent's policy via policy name | policy_id
-set-policy-by-id | Change the agent's policy via policy id | policy_name
+activate | The activate task activates the Deep Security Agent by registering it in Trend Micro Deep Security Manager. By default, activation is skipped if the agent is already activated, unless the force_reactivation attribute is set to true. | dsm_agent_activation_hostname <br/> dsm_agent_activation_port <br/> policy_id/policy_name (Optional) <br/> group_id (Optional) <br/> force_reactivation (Optional) <br/><br/> **For multi-tenancy only:** <br/> tenant_id <br/> token/tenant_password
+set-policy-by-id | Change the agent's policy via policy id | policy_id
+set-policy-by-name | Change the agent's policy via policy name | policy_name
 check-in-with-manager | Ask the agent to contact the manager now. | N/A
 create-diagnostic-package | Generate an agent diagnostic package. | N/A
 create-integrity-baseline | Rebuild the integrity monitoring baseline on the computer. | N/A
@@ -91,7 +91,7 @@ dsm_agent_download_port | Integer | The port to connect to the Deep Security Man
 force_reactivation | Boolean | Force re-activation even if the Deep Security Agent has already been activated. | false
 group_id | String | The Deep Security ID assigned to the computer group and applied to the agents on activation. | 1
 policy_id | String | ID of the Deep Security Policy to be assigned to the agents. | 1
-policy_name | String | Name of the Deep Security Policy to be assigned to the agents. | Base Policy
+policy_name | String | Name of the Deep Security Policy to be assigned to the agents. Policy_name Will be ignored if policy_id has being set. | Base Policy
 tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. <br /> **Multi-tenancy only** | 111A111A-1A1A-11AA-AAA-11AA11111111
 token/tenant_password | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. In latest Deep Security Manager, "tenant_password" has been replaced with "token". "tenant_password" has been kept for backwards compatibility.<br /> **Multi-tenancy only** | 111A111A-1A1A-11AA-AAA-11AA11111111
 
