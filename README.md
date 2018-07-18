@@ -91,7 +91,7 @@ dsm_agent_download_port | Integer | The port to connect to the Deep Security Man
 force_reactivation | Boolean | Force re-activation even if the Deep Security Agent has already been activated. | false
 group_id | String | The Deep Security ID assigned to the computer group and applied to the agents on activation. | 1
 policy_id | String | ID of the Deep Security Policy to be assigned to the agents. | 1
-policy_name | String | Name of the Deep Security Policy to be assigned to the agents. Policy_name Will be ignored if policy_id has being set. | Base Policy
+policy_name | String | Name of the Deep Security Policy to be assigned to the agents. <br /> **Will be ignored if policy_id has been set.** | Base Policy
 tenant_id | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. <br /> **Multi-tenancy only** | 111A111A-1A1A-11AA-AAA-11AA11111111
 token/tenant_password | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. In latest Deep Security Manager, "tenant_password" has been replaced with "token". "tenant_password" has been kept for backwards compatibility.<br /> **Multi-tenancy only** | 111A111A-1A1A-11AA-AAA-11AA11111111
 
