@@ -24,9 +24,16 @@ There are no dependencies.
 
 ## Usage
 
-Below are sample usages for the playbook:
+Currently we have provided two ways to retrieve this role:
 
-##### For deploying Agents to a non-multi-tenant Deep Security Manager
+### Download from Ansible-Galaxy
+ * Please visit our role in [Ansible-Galaxy](https://galaxy.ansible.com/deep-security/deep-security-agent)
+ * Command to download this role
+```bash
+ansible-galaxy install deep-security.deep-security-agent
+```
+
+#### For deploying Agents to a non-multi-tenant Deep Security Manager
 ```yaml
 - hosts: all
   roles:
@@ -41,11 +48,63 @@ Below are sample usages for the playbook:
       force_reactivation: false
 ```
 
-##### For deploying Agents to a multi-tenant Deep Security Manager (like Deep Security as a Service)
+#### For deploying Agents to a multi-tenant Deep Security Manager (like Deep Security as a Service)
 ```yaml
 - hosts: all
   roles:
     - role: deep-security.deep-security-agent
+      operation: deploy
+      dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
+      dsm_agent_download_port: 443
+      dsm_agent_activation_hostname: agents.deepsecurity.trendmicro.com
+      dsm_agent_activation_port: 443
+      tenant_id: 111A111A-1A1A-11AA-AAA-11AA11111111
+      token | tenant_password: 111A111A-1A1A-11AA-AAA-11AA11111111
+      policy_id: 1
+      group_id: 1
+      force_reactivation: false
+```
+
+### Clone from this repo
+ * Command to clone this repository:
+```bash
+git clone git@github.com:deep-security/ansible.git <folder-name>
+```
+
+ * For users have cloned Deep Security Ansible script from this repo, we suggest to have following folder structure for playbook and role:
+
+```
+project
+│   playbook.yaml
+└───roles
+    └───<folder-name>
+        │   LICENSE
+        │   README.md
+        └───defaults
+        └───meta
+        └───tasks
+```
+
+#### For deploying Agents to a non-multi-tenant Deep Security Manager
+```yaml
+- hosts: all
+  roles:
+    - role: <folder-name>
+      operation: deploy
+      dsm_agent_download_hostname: deep.security.manager.host
+      dsm_agent_download_port: 4119
+      dsm_agent_activation_hostname: deep.security.manager.host
+      dsm_agent_activation_port: 4120
+      policy_id: 1
+      group_id: 1
+      force_reactivation: false
+```
+
+#### For deploying Agents to a multi-tenant Deep Security Manager (like Deep Security as a Service)
+```yaml
+- hosts: all
+  roles:
+    - role: <folder-name>
       operation: deploy
       dsm_agent_download_hostname: app.deepsecurity.trendmicro.com
       dsm_agent_download_port: 443
