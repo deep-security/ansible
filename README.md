@@ -2,38 +2,38 @@
 
 An Ansible playbook for the Deep Security Agent. This playbook allows you to easily deploy the Deep Security Agent as well as take some common operations from the Agent.
 
-## Support
 
-This is a community project that is supported by the Trend Micro Deep Security team.
+## Table of Contents
 
-Tutorials, feature-specific help, and other information about Deep Security is available from the [Deep Security Help Center](https://help.deepsecurity.trendmicro.com/Welcome.html). 
+* [Requirements](#requirements)
+* [Install](#install)
+* [Usage](#usage)
+* [Support](#support)
+* [Contribute](#contribute)
 
-For Deep Security specific issues, please use the regular Trend Micro support channels. For issues with the code in this repository, please [open an issue here on GitHub](https://github.com/deep-security/ansible/issues).
 
 ## Requirements
 
-All of the tasks in this repository require a working Deep Security infrastructure. The key component is the Trend Micro Deep Security Manager. The Deep Security Agents (which these playbooks help you manage) do the heavy lifting but the Deep Security Manager gives the orders. 
+* Ansible
+* Deep Security Manager
+* Deep Security Agent
 
-There are no specific technical requirements beyond a standard Ansible deployment.
-
-
-## Dependencies
-
-There are no dependencies.
+All of the tasks below assume you have a working Deep Security infrastructure. The Deep Security Agents (which these playbooks help you manage) do the heavy lifting, but the Deep Security Manager gives the orders. 
 
 
-## Usage
+## Install
 
-Currently we have provided two ways to retrieve this role:
+You can either use [Ansible-Galaxy](https://galaxy.ansible.com/deep-security/deep-security-agent) or Git.
 
 ### Download from Ansible-Galaxy
- * Please visit our role in [Ansible-Galaxy](https://galaxy.ansible.com/deep-security/deep-security-agent)
- * Command to download this role
+Enter the command below.
 ```bash
 ansible-galaxy install deep-security.deep-security-agent
 ```
 
-#### For deploying Agents to a non-multi-tenant Deep Security Manager
+Then you can use the [operation](#usage) to deploy Deep Security Agent.
+
+To deploy agents with a single-tenant Deep Security Manager:
 ```yaml
 - hosts: all
   roles:
@@ -48,7 +48,7 @@ ansible-galaxy install deep-security.deep-security-agent
       force_reactivation: false
 ```
 
-#### For deploying Agents to a multi-tenant Deep Security Manager (like Deep Security as a Service)
+To deploy agents with a multi-tenant Deep Security Manager or Deep Security as a Service:
 ```yaml
 - hosts: all
   roles:
@@ -65,13 +65,13 @@ ansible-galaxy install deep-security.deep-security-agent
       force_reactivation: false
 ```
 
-### Clone from this repo
- * Command to clone this repository:
+### Clone from Git
+Enter the command below.
 ```bash
 git clone git@github.com:deep-security/ansible.git <folder-name>
 ```
 
- * For users have cloned Deep Security Ansible script from this repo, we suggest to have following folder structure for playbook and role:
+If you cloned the Ansible script from this repository, we suggest you have the following folder structure for the playbook and role:
 
 ```
 project
@@ -85,7 +85,9 @@ project
         └───tasks
 ```
 
-#### For deploying Agents to a non-multi-tenant Deep Security Manager
+Then you can use the [operation](#usage) to deploy Deep Security Agent.
+
+To deploy agents with a single-tenant Deep Security Manager:
 ```yaml
 - hosts: all
   roles:
@@ -100,7 +102,7 @@ project
       force_reactivation: false
 ```
 
-#### For deploying Agents to a multi-tenant Deep Security Manager (like Deep Security as a Service)
+To deploy agents with a multi-tenant Deep Security Manager or Deep Security as a Service:
 ```yaml
 - hosts: all
   roles:
@@ -117,9 +119,8 @@ project
       force_reactivation: false
 ```
 
-<a id="operations"></a>
-## Operations
-Definition for possible operations to be performed in this role, for required variables please refer to [Variables](#variables).
+## Usage
+Below are operations you can perform with this role. For required variables, see [Variables](#variables).
 
 Operation | Description | Variables
 ------------|-------------|-------------------
@@ -136,8 +137,7 @@ scan-for-integrity-changes | Scan for changes for integrity monitoring | N/A
 scan-for-malware | Initiate a manual anti-malware scan | N/A
 update-configuration | Instruct the Deep Security Manager to perform a "Send Policy" operation. | N/A
 
-<a id="variables"></a>
-## Variables
+### Variables
 
 Key | Type | Description | Sample
 ----|------|-------------|--------
@@ -155,14 +155,30 @@ tenant_id | String | In a multi-tenant installation (like Deep Security as a Ser
 token/tenant_password | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the Agent with. In latest Deep Security Manager, "tenant_password" has been replaced with "token". "tenant_password" has been kept for backwards compatibility.<br /> **Multi-tenancy only** | 111A111A-1A1A-11AA-AAA-11AA11111111
 
 
+## Support
 
-## How to contribute
+This is an Open Source community project supported by the Deep Security 
+team. 
 
-We're always open to PRs from the community. To submit one:
+For issues with Deep Security in general, please 
+[contact Trend Micro Support](https://success.trendmicro.com/). 
+Tutorials, feature-specific help, and other information about Deep Security 
+is available from the [Deep Security Help Center](https://help.deepsecurity.trendmicro.com/). 
 
-1. Fork the repo.
-2. Create a new feature branch.
-3. Make your changes.
-4. Submit a PR with an explanation of your changes or additions.
+For bug reports or feature requests for this project specifically, please 
+[open an issue](../issues). Please be specific about what you're 
+trying to do, your system, and steps to reproduce the problem.
+You are welcome to [contribute](#contribute).
 
-We'll review your content and work with you to make sure the fix gets pushed out quickly. For further help, please contact the Trend Micro open source support team at deepsecurityopensource@trendmicro.com.
+
+## Contribute
+
+We accept contributions from the community. To submit changes:
+
+1. Fork this repository.
+1. Create a new feature branch.
+1. Make your changes.
+1. Submit a pull request with an explanation of your changes or additions.
+
+We will review and work with you to release the code. For further help, 
+please contact the Trend Micro open source support team at deepsecurityopensource@trendmicro.com.
